@@ -1,0 +1,191 @@
+<pnml xmlns="NestedSpin">
+   <net id="netId1605731870753" type="NestedSpin">
+      <transition id="7">
+         <downlink_label>
+            <graphics>
+               <offset x="0" y="-52"/>
+            </graphics>
+            <text>LAMBDA</text>
+         </downlink_label>
+         <name>
+            <graphics>
+               <offset x="2" y="46"/>
+            </graphics>
+            <text>T2</text>
+         </name>
+         <graphics>
+            <position x="825" y="253"/>
+            <dimension x="15" y="73"/>
+            <fill color="rgb(0,0,255)"/>
+            <line color="rgb(0,0,0)"/>
+         </graphics>
+      </transition>
+      <place id="8">
+         <name>
+            <graphics>
+               <offset x="-1" y="-52"/>
+            </graphics>
+            <text>P3</text>
+         </name>
+         <graphics>
+            <position x="701" y="252"/>
+            <dimension x="70" y="68"/>
+            <fill color="rgb(64,64,64)"/>
+            <line color="rgb(0,0,0)"/>
+         </graphics>
+      </place>
+      <place id="9">
+         <type>
+            <text>shared</text>
+         </type>
+         <initialMarking>
+            <graphics>
+               <offset x="-1" y="-18"/>
+            </graphics>
+            <text>[]</text>
+         </initialMarking>
+         <initialMarking>
+            <graphics>
+               <offset x="-18" y="1"/>
+            </graphics>
+            <text>[]</text>
+         </initialMarking>
+         <initialMarking>
+            <graphics>
+               <offset x="0" y="0"/>
+            </graphics>
+            <text>[]</text>
+         </initialMarking>
+         <initialMarking>
+            <graphics>
+               <offset x="0" y="16"/>
+            </graphics>
+            <text>[]</text>
+         </initialMarking>
+         <name>
+            <graphics>
+               <offset x="0" y="-44"/>
+            </graphics>
+            <text>P1</text>
+         </name>
+         <graphics>
+            <position x="351" y="252"/>
+            <dimension x="70" y="68"/>
+            <fill color="rgb(235,199,158)"/>
+            <line color="rgb(0,0,0)"/>
+         </graphics>
+      </place>
+      <place id="17">
+         <name>
+            <graphics>
+               <offset x="0" y="-49"/>
+            </graphics>
+            <text>P2</text>
+         </name>
+         <initialMarking>
+            <graphics>
+               <offset x="0" y="0"/>
+            </graphics>
+            <text>[]</text>
+         </initialMarking>
+         <graphics>
+            <position x="471" y="253"/>
+            <dimension x="70" y="68"/>
+            <fill color="rgb(0,0,255)"/>
+            <line color="rgb(0,0,0)"/>
+         </graphics>
+      </place>
+      <transition id="18">
+         <name>
+            <graphics>
+               <offset x="2" y="46"/>
+            </graphics>
+            <text>T1</text>
+         </name>
+         <graphics>
+            <position x="583" y="252"/>
+            <dimension x="15" y="73"/>
+            <fill color="rgb(0,0,255)"/>
+            <line color="rgb(0,0,0)"/>
+         </graphics>
+      </transition>
+      <place id="22">
+         <name>
+            <graphics>
+               <offset x="0" y="-49"/>
+            </graphics>
+            <text>P4</text>
+         </name>
+         <graphics>
+            <position x="967" y="253"/>
+            <dimension x="70" y="68"/>
+            <fill color="rgb(0,0,255)"/>
+            <line color="rgb(0,0,0)"/>
+         </graphics>
+      </place>
+      <place id="24">
+         <type>
+            <text>shared</text>
+         </type>
+         <name>
+            <graphics>
+               <offset x="0" y="-44"/>
+            </graphics>
+            <text>P5</text>
+         </name>
+         <graphics>
+            <position x="1127" y="250"/>
+            <dimension x="70" y="68"/>
+            <fill color="rgb(235,199,158)"/>
+            <line color="rgb(0,0,0)"/>
+         </graphics>
+      </place>
+      <arc id="26" source="17" target="18">
+         <type>
+            <text>ordinary</text>
+         </type>
+         <graphics>
+            <line color="rgb(0,0,0)" style="solid"/>
+         </graphics>
+      </arc>
+      <arc id="27" source="18" target="8">
+         <inscription>
+            <graphics>
+               <offset x="-5" y="-17"/>
+            </graphics>
+            <text>F</text>
+         </inscription>
+         <type>
+            <text>ordinary</text>
+         </type>
+         <graphics>
+            <line color="rgb(0,0,0)" style="solid"/>
+         </graphics>
+      </arc>
+      <arc id="28" source="8" target="7">
+         <inscription>
+            <graphics>
+               <offset x="-5" y="-16"/>
+            </graphics>
+            <text>x</text>
+         </inscription>
+         <type>
+            <text>ordinary</text>
+         </type>
+         <graphics>
+            <line color="rgb(0,0,0)" style="solid"/>
+         </graphics>
+      </arc>
+      <arc id="29" source="7" target="22">
+         <type>
+            <text>ordinary</text>
+         </type>
+         <graphics>
+            <line color="rgb(0,0,0)" style="solid"/>
+         </graphics>
+      </arc>
+      <name>
+         <text>SN</text>
+      </name>
+   </net>
+</pnml>
