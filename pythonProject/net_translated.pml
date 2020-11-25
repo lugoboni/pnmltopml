@@ -140,8 +140,9 @@ init {
        sP(_pid, 3);
        READY = READY - 1;
        rmConf(BERECHARGED, gbchan)
-       gbchan ?? nt,TAKE_ORDER,1,0;
+       gbchan ?? nt,TAKE_ORDER,_,0;
        gbchan ! nt,TAKE_ORDER,1,1;
+       ENTRANCE.d ! nt,255,0,0;
        transpNetTok(ENTRANCE.d, SENT.d, nt);
        printf("Firing transition T1");
        sP(_pid, 1);
@@ -149,8 +150,9 @@ init {
    :: atomic{
        nempty(SENT.d) && gbchan ?? [_,DELIVER,_,0]  ->
        sP(_pid, 3);
-       gbchan ?? nt,DELIVER,2,0;
+       gbchan ?? nt,DELIVER,_,0;
        gbchan ! nt,DELIVER,2,1;
+       SENT.d ! nt,255,0,0;
        transpNetTok(SENT.d, ENTRANCE.d, nt);
        printf("Firing transition T2");
        sP(_pid, 1);
@@ -159,11 +161,11 @@ init {
        nempty(ENTRANCE.d) && nempty(WAITING.d) && gbchan ?? [_,BERECHARGED,_,0] && gbchan ?? [_,BERECHARGED,_,0]  ->
        sP(_pid, 3);
        rmConf(TAKE_ORDER, gbchan)
-       gbchan ?? nt,BERECHARGED,3,0;
+       gbchan ?? nt,BERECHARGED,_,0;
        gbchan ! nt,BERECHARGED,3,1;
+       ENTRANCE.d ! nt,255,0,0;
        transpNetTok(ENTRANCE.d, MAINTENANCE.d, nt);
-       gbchan ?? nt,BERECHARGED,3,0;
-       gbchan ! nt,BERECHARGED,3,1;
+       WAITING.d ! nt,255,0,0;
        transpNetTok(WAITING.d, MAINTENANCE.d, nt);
        printf("Firing transition T3");
        sP(_pid, 1);
@@ -171,8 +173,9 @@ init {
    :: atomic{
        nempty(MAINTENANCE.d)  ->
        sP(_pid, 3);
-       gbchan ?? nt,_,4,0;
-       gbchan ! nt,_,4,1;
+       gbchan ?? nt,_,_,0;
+       gbchan ! nt,0,4,1;
+       MAINTENANCE.d ! nt,255,0,0;
        transpNetTok(MAINTENANCE.d, ENTRANCE.d, nt);
        printf("Firing transition T4");
        sP(_pid, 1);
@@ -180,8 +183,9 @@ init {
    :: atomic{
        nempty(MAINTENANCE.d) && gbchan ?? [_,BACK,_,0]  ->
        sP(_pid, 3);
-       gbchan ?? nt,BACK,5,0;
+       gbchan ?? nt,BACK,_,0;
        gbchan ! nt,BACK,5,1;
+       MAINTENANCE.d ! nt,255,0,0;
        transpNetTok(MAINTENANCE.d, WAITING.d, nt);
        printf("Firing transition T5");
        sP(_pid, 1);

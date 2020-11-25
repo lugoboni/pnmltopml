@@ -155,19 +155,23 @@ def create_enable_tests(only_places, only_transitions, only_arcs, channel_places
                         out_marks_count = out_arc['marking']
                         while marks_count[mark] > 0 and mark in out_marks_count.keys() and out_marks_count[mark] > 0:
                             if tansition_label:
-                                sentence = "gbchan ?? nt,{1},{2},0;\n".format(only_places[arc[0]]['name'][0], tansition_label, only_transitions[transition]['promela_id'])
+                                sentence = "gbchan ?? nt,{1},_,0;\n".format(only_places[arc[0]]['name'][0], tansition_label)
                             else:
-                                sentence = "gbchan ?? nt,_,{1},0;\n".format(only_places[arc[0]]['name'][0], only_transitions[transition]['promela_id'])
-                            produce_actions['transport'].append(sentence)
+                                sentence = "gbchan ?? nt,_,_,0;\n"
+                            if sentence not in produce_actions['transport']:
+                                produce_actions['transport'].append(sentence)
 
                             if tansition_label:
                                 sentence = "gbchan ! nt,{1},{2},1;\n".format(only_places[arc[0]]['name'][0], tansition_label, only_transitions[transition]['promela_id'])
                             else:
-                                sentence = "gbchan ! nt,_,{1},1;\n".format(only_places[arc[0]]['name'][0], only_transitions[transition]['promela_id'])
-                            # sentence_b = "{0}.d ! nt,255,0,0;\n".format(only_places[arc[0]]['name'][0])
-                            produce_actions['transport'].append(sentence)
-                            # produce_actions['transport'].append(sentence_b)
+                                sentence = "gbchan ! nt,0,{1},1;\n".format(only_places[arc[0]]['name'][0], only_transitions[transition]['promela_id'])
 
+                            if sentence not in produce_actions['transport']:
+                                produce_actions['transport'].append(sentence)
+
+                            sentence_b = "{0}.d ! nt,255,0,0;\n".format(only_places[arc[0]]['name'][0])
+                            # produce_actions['transport'].append(sentence)
+                            produce_actions['transport'].append(sentence_b)
 
 
                             sentence = "transpNetTok({0}.d, {1}.d, nt);\n".format(only_places[arc[0]]['name'][0], only_places[out_arc['target']]['name'][0])

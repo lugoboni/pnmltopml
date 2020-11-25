@@ -23,9 +23,11 @@ def create_nets_info(nets):
             nets_info[net]['label'] = net_label
             net_label += 1
             nets_info[net]['tokens'] = set()
+            nets_info[net]['transitions_labels'] = set()
         else:
             nets_info[net] = dict() if net not in nets_info.keys() else None
             nets_info[net]['tokens'] = set()
+            nets_info[net]['transitions_labels'] = set()
         nets_info[net]['id'] = 0
     return nets_info
 
@@ -50,20 +52,27 @@ def parse_transitions_and_labels(root, transition_dicts, nets_info, uplink, down
         horizontal_label = transition[4][0] if transition[4] else None
         transition_id = transition[0]
 
+
         if downlink_label and downlink_label in downlink.keys():
             downlink[downlink_label].append(transition_id)
+            nets_info[root[1]]["transitions_labels"].add(downlink_label)
         elif downlink_label:
             downlink[downlink_label] = [transition_id]
+            nets_info[root[1]]["transitions_labels"].add(downlink_label)
 
         if uplink_label and uplink_label in uplink.keys():
             uplink[uplink_label].append(transition_id)
+            nets_info[root[1]]["transitions_labels"].add(uplink_label)
         elif uplink_label:
             uplink[uplink_label] = [transition_id]
+            nets_info[root[1]]["transitions_labels"].add(uplink_label)
 
         if horizontal_label and horizontal_label in horizontal.keys():
             horizontal[horizontal_label].append(transition_id)
+            nets_info[root[1]]["transitions_labels"].add(horizontal_label)
         elif horizontal_label:
             horizontal[horizontal_label] = [transition_id]
+            nets_info[root[1]]["transitions_labels"].add(horizontal_label)
 
         transition_dict[transition[0]] = dict(
             [
