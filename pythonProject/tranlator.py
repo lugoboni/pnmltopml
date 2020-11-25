@@ -73,7 +73,7 @@ def create_enable_tests(only_places, only_transitions, only_arcs, channel_places
                         origin = only_places[arc[0]]['name'][0]
                         origins.append(origin)
                 for origin in origins:
-                    downlink_condition = "{0}.d ?? [_,{1},_,0]".format(origin ,downlink_label)
+                    downlink_condition = "gbchan ?? [_,{1},_,0]".format(origin ,downlink_label)
                     sentences['downlink_specific_conditions'].append(downlink_condition)
             else:
                 pass
@@ -84,7 +84,7 @@ def create_enable_tests(only_places, only_transitions, only_arcs, channel_places
                 fire_uplink_condition = "it == {0}".format(only_transitions[transition]['promela_id'])
                 sentences['outer_loop_conditions'].append(fire_uplink_condition)
 
-                condition = "! pc ?? [_,{0},_,0]".format(uplink_label)
+                condition = "! gbchan ?? [_,{0},_,0]".format(uplink_label)
                 sentences['uplink_specific_conditions'].append(condition)
                 # sentence = "pc ! _pid,{0},{1},1;\n".format(uplink_label, only_transitions[transition]['promela_id'])
                 # produce_actions['general'].append(sentence)
@@ -96,10 +96,10 @@ def create_enable_tests(only_places, only_transitions, only_arcs, channel_places
             if arcs:
                 horizontal_label = only_transitions[transition]['horizontal_label'][0]
                 tansition_label = horizontal_label
-                sentences['horizontal_specific_conditions_a'].append("! pc??[_,{0},_,0]".format(horizontal_label))
-                sentences['horizontal_specific_conditions_b'].append("! pc??[eval(_pid),{0},_,0] && pc??[_,{0},_,0]".format(horizontal_label))
+                sentences['horizontal_specific_conditions_a'].append("! gbchan??[_,{0},_,0]".format(horizontal_label))
+                sentences['horizontal_specific_conditions_b'].append("! gbchan??[eval(_pid),{0},_,0] && gbchan??[_,{0},_,0]".format(horizontal_label))
                 sentences['outer_loop_conditions'].append("it == {0}".format(only_transitions[transition]['promela_id']))
-                sentence = "pc ! _pid,{0},{1},0;\n".format(horizontal_label, only_transitions[transition]['promela_id'])
+                sentence = "gbchan ! _pid,{0},{1},0;\n".format(horizontal_label, only_transitions[transition]['promela_id'])
                 produce_actions['general'].append(sentence)
         else:
             pass
@@ -155,15 +155,15 @@ def create_enable_tests(only_places, only_transitions, only_arcs, channel_places
                         out_marks_count = out_arc['marking']
                         while marks_count[mark] > 0 and mark in out_marks_count.keys() and out_marks_count[mark] > 0:
                             if tansition_label:
-                                sentence = "{0}.d ?? nt,{1},{2},0;\n".format(only_places[arc[0]]['name'][0], tansition_label, only_transitions[transition]['promela_id'])
+                                sentence = "gbchan ?? nt,{1},{2},0;\n".format(only_places[arc[0]]['name'][0], tansition_label, only_transitions[transition]['promela_id'])
                             else:
-                                sentence = "{0}.d ?? nt,_,{1},0;\n".format(only_places[arc[0]]['name'][0], only_transitions[transition]['promela_id'])
+                                sentence = "gbchan ?? nt,_,{1},0;\n".format(only_places[arc[0]]['name'][0], only_transitions[transition]['promela_id'])
                             produce_actions['transport'].append(sentence)
 
                             if tansition_label:
-                                sentence = "{0}.d ! nt,{1},{2},1;\n".format(only_places[arc[0]]['name'][0], tansition_label, only_transitions[transition]['promela_id'])
+                                sentence = "gbchan ! nt,{1},{2},1;\n".format(only_places[arc[0]]['name'][0], tansition_label, only_transitions[transition]['promela_id'])
                             else:
-                                sentence = "{0}.d ! nt,_,{1},1;\n".format(only_places[arc[0]]['name'][0], only_transitions[transition]['promela_id'])
+                                sentence = "gbchan ! nt,_,{1},1;\n".format(only_places[arc[0]]['name'][0], only_transitions[transition]['promela_id'])
                             # sentence_b = "{0}.d ! nt,255,0,0;\n".format(only_places[arc[0]]['name'][0])
                             produce_actions['transport'].append(sentence)
                             # produce_actions['transport'].append(sentence_b)
@@ -176,9 +176,9 @@ def create_enable_tests(only_places, only_transitions, only_arcs, channel_places
                             #     sentence = "{0}.d ! nt,{1},{2},1;\n".format(only_places[out_arc['target']]['name'][0], tansition_label, only_transitions[transition]['promela_id'])
                             # else:
                             #     sentence = "{0}.d ! nt,_,{1},1;\n".format(only_places[out_arc['target']]['name'][0], only_transitions[transition]['promela_id'])
-                            sentence_b = "{0}.d ! nt,255,0,0;\n".format(only_places[out_arc['target']]['name'][0])
+                            # sentence_b = "{0}.d ! nt,255,0,0;\n".format(only_places[out_arc['target']]['name'][0])
                             # produce_actions['transport'].append(sentence)
-                            produce_actions['transport'].append(sentence_b)
+                            # produce_actions['transport'].append(sentence_b)
                             marks_count[mark] = marks_count[mark] - 1
                             out_marks_count[mark] = out_marks_count[mark] - 1
 
@@ -189,11 +189,11 @@ def create_enable_tests(only_places, only_transitions, only_arcs, channel_places
                 for mark in marks_count.keys():
                     if marks_count[mark] > 0:
                         for i in range(0, marks_count[mark]):
-                            sentence = "{0}.d ?? nt,{1},{2},0;\n".format(only_places[arc[0]]['name'][0], tansition_label, only_transitions[transition]['promela_id'])
+                            sentence = "gbchan ?? nt,{1},{2},0;\n".format(only_places[arc[0]]['name'][0], tansition_label, only_transitions[transition]['promela_id'])
                             consume_actions['consume'].append(sentence)
                             sentence = "consNetTok({0}.d,nt);\n".format(only_places[arc[0]]['name'][0])
                             consume_actions['consume'].append(sentence)
-                            sentence = "{0}.d ! nt,{1},{2},1;\n".format(only_places[arc[0]]['name'][0], tansition_label, only_transitions[transition]['promela_id'])
+                            sentence = "gbchan ! nt,{1},{2},1;\n".format(only_places[arc[0]]['name'][0], tansition_label, only_transitions[transition]['promela_id'])
                             consume_actions['consume'].append(sentence)
             else:
                 if arc[1]['marking'].keys():
@@ -223,17 +223,17 @@ def create_enable_tests(only_places, only_transitions, only_arcs, channel_places
                             raise Exception
                         if origin_arc['marking'].keys():
                             for mark in origin_arc['marking'].keys():
-                                sentence = "rmConf({0}, {1}.d)\n".format(brother_transition_label,
+                                sentence = "rmConf({0}, gbchan)\n".format(brother_transition_label,
                                                                          only_places[origin_place]['name'][0])
                                 if mark in arc[1]['marking'].keys() and mark in arc_variables and origin_place in channel_places:
                                     consume_actions['consume'].append(sentence)
                                 elif sentence not in consume_actions['consume'] and origin_place != arc[0]:
-                                    sentence = "rmConf({0}, pc)\n".format(brother_transition_label)
+                                    sentence = "rmConf({0}, gbchan)\n".format(brother_transition_label)
                                     consume_actions['consume'].append(sentence)
                         else:
-                            sentence = "rmConf({0}, {1}.d)\n".format(brother_transition_label,
+                            sentence = "rmConf({0}, gbchan)\n".format(brother_transition_label,
                                                                      only_places[origin_place]['name'][0])
-                            base_sentence = "rmConf({0}, pc)\n".format(brother_transition_label)
+                            base_sentence = "rmConf({0}, gbchan)\n".format(brother_transition_label)
                             if sentence not in consume_actions['consume'] and base_sentence not in consume_actions['consume']:
                                 consume_actions['consume'].append(base_sentence)
 
@@ -252,10 +252,10 @@ def create_enable_tests(only_places, only_transitions, only_arcs, channel_places
                         sentence = "{0}.d ! nt,255,0,0;\n".format(only_places[arc['target']]['name'][0])
                         produce_actions['run'].append(sentence)
                         if tansition_label:
-                            sentence = "pc ! _pid,{0},{1},0;\n".format(tansition_label,
+                            sentence = "gbchan ! _pid,{0},{1},0;\n".format(tansition_label,
                                                                    only_transitions[transition]['promela_id'])
                         else:
-                            sentence = "pc ! _pid,0,{0},0;\n".format(only_transitions[transition]['promela_id'])
+                            sentence = "gbchan ! _pid,0,{0},0;\n".format(only_transitions[transition]['promela_id'])
                         produce_actions['general'].append(sentence)
 
                         if not sentences['outer_loop_conditions']:

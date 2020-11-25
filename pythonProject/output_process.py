@@ -75,7 +75,7 @@ PROMELA_PRE_FUNCTIONS = [
     "\n\n",
     "/*###############################################*/\n",
     "\n\n",
-    "chan gbChan = [18] of {byte, byte, byte, chan};\n",
+    "chan gbchan = [255] of {byte, byte, byte, bit};\n",
     "\n\n",
     "/*###############################################*/ \n"]
 
@@ -173,7 +173,7 @@ def generate_promela_code(
                 enable = enable[:-3]
                 f.write("           {} ->\n".format(enable))
                 if(enable_tests[transition]['uplink_specific_conditions']):
-                    sentence = "pc ! _pid,{0},{1},0\n".format(transitions[net][transition]['uplink_label'][0],transitions[net][transition]['promela_id'])
+                    sentence = "gbchan ! _pid,{0},{1},0\n".format(transitions[net][transition]['uplink_label'][0],transitions[net][transition]['promela_id'])
                     f.write("           {}".format(sentence))
                     f.write("           printf(\"Firing transition {0}\");\n".format(transitions[net][transition]['name'][0]))
                     f.write("       }\n")
@@ -204,7 +204,7 @@ def generate_promela_code(
                     enable = enable[:-3]
                     f.write("           {} ->\n".format(enable))
                     f.write("           sP(_pid, 3);\n")
-                    f.write("            pc!_pid,{0},{1},0;\n".format(transitions[net][transition]['horizontal_label'][0],transitions[net][transition]['promela_id']))
+                    f.write("            gbchan!_pid,{0},{1},0;\n".format(transitions[net][transition]['horizontal_label'][0],transitions[net][transition]['promela_id']))
                     f.write("           printf(\"Firing transition {0}\");\n".format(
                         transitions[net][transition]['name'][0]))
                     f.write("           sP(_pid, 1);\n")
@@ -213,7 +213,7 @@ def generate_promela_code(
             f.write("       od}\n")
             if enable_tests[transition]['outer_loop_conditions']:
                 f.write("       unless atomic{\n")
-                f.write("       pc ?? [eval(_pid),_,it,1]\n         if")
+                f.write("       gbchan ?? eval(_pid),_,it,1\n         if")
                 for transition in transitions[net].keys():
                     for outer_condition in enable_tests[transition]['outer_loop_conditions']:
                         f.write("  :: {} ->\n".format(outer_condition))
@@ -231,10 +231,8 @@ def generate_promela_code(
                         else:
                             for p in produce[transition]['run']:
                                 f.write("           {}\n".format(p))
-                        f.write("           pc ?? eval(_pid),_,it,1\n")
                         f.write("           printf(\"Firing outer loop transition {0}\");\n".format(
                             transitions[net][transition]['name'][0]))
-                        f.write("           break\n")
             f.write("         fi; sP(_pid, 1);   }\n")
             f.write("   od; sP(_pid, 1);  }\n\n")
 
