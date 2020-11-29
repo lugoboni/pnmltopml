@@ -169,10 +169,6 @@ def create_enable_tests(only_places, only_transitions, only_arcs, channel_places
                             if sentence not in produce_actions['transport']:
                                 produce_actions['transport'].append(sentence)
 
-                            sentence_b = "{0}.d ! nt,255,0,0;\n".format(only_places[arc[0]]['name'][0])
-                            # produce_actions['transport'].append(sentence)
-                            produce_actions['transport'].append(sentence_b)
-
 
                             sentence = "transpNetTok({0}.d, {1}.d, nt);\n".format(only_places[arc[0]]['name'][0], only_places[out_arc['target']]['name'][0])
                             produce_actions['transport'].append(sentence)
