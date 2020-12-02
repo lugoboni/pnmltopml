@@ -132,7 +132,7 @@ def generate_promela_code(
                     enable = enable + condition + " && "
                 enable = enable[:-3]
                 f.write("       {} ->\n".format(enable))
-                # f.write("       sP(_pid, 3);\n")
+                f.write("       sP(_pid, 3);\n")
                 for c in consume[transition]['general']:
                     f.write("       {}".format(c))
                 for c in consume[transition]['consume']:
@@ -145,7 +145,7 @@ def generate_promela_code(
                 for p in produce[transition]['run']:
                     f.write("       {}".format(p))
                 f.write("       printf(\"Firing transition {0}\");\n".format(transitions[net][transition]['name'][0]))
-                # f.write("       sP(_pid, 1);\n")
+                f.write("       sP(_pid, 1);\n")
                 f.write("   }\n")
             f.write("   od}\n")
         else:
@@ -183,7 +183,7 @@ def generate_promela_code(
                     f.write("           printf(\"Firing transition {0}\");\n".format(transitions[net][transition]['name'][0]))
                     f.write("       }\n")
                 else:
-                    # f.write("           sP(_pid, 3);\n")
+                    f.write("           sP(_pid, 3);\n")
                     for c in consume[transition]['general']:
                         f.write("           {}".format(c))
                     for c in consume[transition]['consume']:
@@ -193,7 +193,7 @@ def generate_promela_code(
                     for p in produce[transition]['general']:
                         f.write("           {}".format(p))
                     f.write("           printf(\"Firing transition {0}\");\n".format(transitions[net][transition]['name'][0]))
-                    # f.write("           sP(_pid, 1);\n")
+                    f.write("           sP(_pid, 1);\n")
                     f.write("       }\n")
                 if enable_tests[transition]['horizontal_specific_conditions_a']:
                     f.write("       :: d_step{\n")
@@ -208,11 +208,11 @@ def generate_promela_code(
                         enable = enable + condition + " && "
                     enable = enable[:-3]
                     f.write("           {} ->\n".format(enable))
-                    # f.write("           sP(_pid, 3);\n")
+                    f.write("           sP(_pid, 3);\n")
                     f.write("            gbchan!_pid,{0},{1},0;\n".format(transitions[net][transition]['horizontal_label'][0],transitions[net][transition]['promela_id']))
                     f.write("           printf(\"Firing transition {0}\");\n".format(
                         transitions[net][transition]['name'][0]))
-                    # f.write("           sP(_pid, 1);\n")
+                    f.write("           sP(_pid, 1);\n")
                     f.write("       }\n")
 
             f.write("       od}\n")

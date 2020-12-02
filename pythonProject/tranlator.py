@@ -101,7 +101,7 @@ def create_enable_tests(only_places, only_transitions, only_arcs, channel_places
                 sentences['outer_loop_conditions'].append("it == {0}".format(only_transitions[transition]['promela_id']))
                 # sentence = "gbchan ! _pid,{0},{1},0;\n".format(horizontal_label, only_transitions[transition]['promela_id'])
                 # produce_actions['general'].append(sentence)
-                # consume_actions['consume'].append("gbchan ?? nt,{0},it,0;\n".format(tansition_label))
+                consume_actions['consume'].append("gbchan ?? nt,{0},_,0;\n".format(tansition_label))
                 produce_actions['general'].append("gbchan ! _pid,{0},{1},0;\n".format(tansition_label, only_transitions[transition]['promela_id']))
                 produce_actions['general'].append(
                     "gbchan ! _pid,{0},{1},1;\n".format(tansition_label, only_transitions[transition]['promela_id']))
