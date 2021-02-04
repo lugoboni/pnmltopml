@@ -1,63 +1,114 @@
 <pnml xmlns="NestedSpin">
-   <net id="netId1606949557273" type="NestedSpin">
-      <place id="1">
+   <net id="netId1606949609622" type="NestedSpin">
+      <place id="57">
+         <type>
+            <text>shared</text>
+         </type>
+         <initialMarking>
+            <graphics>
+               <offset x="-1" y="-18"/>
+            </graphics>
+            <text>[]</text>
+         </initialMarking>
+         <initialMarking>
+            <graphics>
+               <offset x="-18" y="1"/>
+            </graphics>
+            <text>[]</text>
+         </initialMarking>
+         <initialMarking>
+            <graphics>
+               <offset x="0" y="0"/>
+            </graphics>
+            <text>[]</text>
+         </initialMarking>
+         <initialMarking>
+            <graphics>
+               <offset x="16" y="0"/>
+            </graphics>
+            <text>[]</text>
+         </initialMarking>
+         <initialMarking>
+            <graphics>
+               <offset x="0" y="16"/>
+            </graphics>
+            <text>[]</text>
+         </initialMarking>
+         <name>
+            <graphics>
+               <offset x="-4" y="-53"/>
+            </graphics>
+            <text>ORDERS</text>
+         </name>
+         <graphics>
+            <position x="705" y="180"/>
+            <dimension x="70" y="68"/>
+            <fill color="rgb(235,199,158)"/>
+            <line color="rgb(0,0,0)"/>
+         </graphics>
+      </place>
+      <place id="59">
          <name>
             <graphics>
                <offset x="0" y="-43"/>
             </graphics>
-            <text>TRAVELING</text>
+            <text>OPEN</text>
          </name>
+         <initialMarking>
+            <graphics>
+               <offset x="0" y="0"/>
+            </graphics>
+            <text>[]</text>
+         </initialMarking>
+         <initialMarking>
+            <graphics>
+               <offset x="0" y="21"/>
+            </graphics>
+            <text>[]</text>
+         </initialMarking>
+         <initialMarking>
+            <graphics>
+               <offset x="16" y="0"/>
+            </graphics>
+            <text>[]</text>
+         </initialMarking>
+         <initialMarking>
+            <graphics>
+               <offset x="-17" y="1"/>
+            </graphics>
+            <text>[]</text>
+         </initialMarking>
+         <initialMarking>
+            <graphics>
+               <offset x="1" y="-20"/>
+            </graphics>
+            <text>[]</text>
+         </initialMarking>
          <graphics>
-            <position x="706" y="210"/>
+            <position x="418" y="181"/>
             <dimension x="70" y="68"/>
             <fill color="rgb(0,0,255)"/>
             <line color="rgb(0,0,0)"/>
          </graphics>
       </place>
-      <transition id="2">
-         <uplink_label>
-            <graphics>
-               <offset x="1" y="-50"/>
-            </graphics>
-            <text>TAKE_ORDER</text>
-         </uplink_label>
+      <transition id="61">
          <name>
             <graphics>
-               <offset x="1" y="45"/>
+               <offset x="2" y="45"/>
             </graphics>
-            <text>TD0</text>
+            <text>TA0</text>
          </name>
          <graphics>
-            <position x="598" y="210"/>
+            <position x="547" y="181"/>
             <dimension x="15" y="73"/>
             <fill color="rgb(0,0,255)"/>
             <line color="rgb(0,0,0)"/>
          </graphics>
       </transition>
-      <transition id="3">
-         <uplink_label>
-            <graphics>
-               <offset x="3" y="-50"/>
-            </graphics>
-            <text>DELIVER</text>
-         </uplink_label>
-         <name>
-            <graphics>
-               <offset x="3" y="44"/>
-            </graphics>
-            <text>TD1</text>
-         </name>
-         <graphics>
-            <position x="797" y="210"/>
-            <dimension x="15" y="73"/>
-            <fill color="rgb(0,0,255)"/>
-            <line color="rgb(0,0,0)"/>
-         </graphics>
-      </transition>
-      <arc id="4" source="2" target="1">
+      <arc id="62" source="59" target="61">
          <inscription>
             <graphics>
-               <offset x="-2" y="-8"/>
+               <offset x="1" y="-12"/>
             </graphics>
             <text>1</text>
          </inscription>
@@ -68,10 +119,10 @@
             <line color="rgb(0,0,0)" style="solid"/>
          </graphics>
       </arc>
-      <arc id="5" source="1" target="3">
+      <arc id="63" source="61" target="57">
          <inscription>
             <graphics>
-               <offset x="-10" y="-11"/>
+               <offset x="1" y="-14"/>
             </graphics>
             <text>1</text>
          </inscription>
@@ -82,7 +133,7 @@
             <line color="rgb(0,0,0)" style="solid"/>
          </graphics>
       </arc>
-      <place id="11">
+      <place id="64">
          <name>
             <graphics>
                <offset x="0" y="-43"/>
@@ -90,163 +141,13 @@
             <text>WASTE</text>
          </name>
          <graphics>
-            <position x="669" y="331"/>
+            <position x="702" y="296"/>
             <dimension x="70" y="68"/>
             <fill color="rgb(0,0,255)"/>
             <line color="rgb(0,0,0)"/>
          </graphics>
       </place>
-      <transition id="13">
-         <name>
-            <graphics>
-               <offset x="3" y="44"/>
-            </graphics>
-            <text>TD2</text>
-         </name>
-         <graphics>
-            <position x="807" y="331"/>
-            <dimension x="15" y="73"/>
-            <fill color="rgb(0,0,255)"/>
-            <line color="rgb(0,0,0)"/>
-         </graphics>
-      </transition>
-      <place id="15">
-         <name>
-            <graphics>
-               <offset x="0" y="-43"/>
-            </graphics>
-            <text>RETURNING</text>
-         </name>
-         <graphics>
-            <position x="900" y="209"/>
-            <dimension x="70" y="68"/>
-            <fill color="rgb(0,0,255)"/>
-            <line color="rgb(0,0,0)"/>
-         </graphics>
-      </place>
-      <arc id="17" source="3" target="15">
-         <inscription>
-            <graphics>
-               <offset x="-2" y="-10"/>
-            </graphics>
-            <text>1</text>
-         </inscription>
-         <type>
-            <text>ordinary</text>
-         </type>
-         <graphics>
-            <line color="rgb(0,0,0)" style="solid"/>
-         </graphics>
-      </arc>
-      <place id="18">
-         <name>
-            <graphics>
-               <offset x="0" y="-43"/>
-            </graphics>
-            <text>RESTING</text>
-         </name>
-         <initialMarking>
-            <graphics>
-               <offset x="-20" y="10"/>
-            </graphics>
-            <text>[]</text>
-         </initialMarking>
-         <initialMarking>
-            <graphics>
-               <offset x="21" y="11"/>
-            </graphics>
-            <text>[]</text>
-         </initialMarking>
-         <initialMarking>
-            <graphics>
-               <offset x="-1" y="-19"/>
-            </graphics>
-            <text>[]</text>
-         </initialMarking>
-         <graphics>
-            <position x="465" y="210"/>
-            <dimension x="70" y="68"/>
-            <fill color="rgb(0,0,255)"/>
-            <line color="rgb(0,0,0)"/>
-         </graphics>
-      </place>
-      <arc id="20" source="18" target="2">
-         <inscription>
-            <graphics>
-               <offset x="0" y="-9"/>
-            </graphics>
-            <text>1</text>
-         </inscription>
-         <type>
-            <text>ordinary</text>
-         </type>
-         <graphics>
-            <line color="rgb(0,0,0)" style="solid"/>
-         </graphics>
-      </arc>
-      <arc id="21" source="13" target="11">
-         <inscription>
-            <graphics>
-               <offset x="7" y="-10"/>
-            </graphics>
-            <text>1</text>
-         </inscription>
-         <type>
-            <text>ordinary</text>
-         </type>
-         <graphics>
-            <line color="rgb(0,0,0)" style="solid"/>
-         </graphics>
-      </arc>
-      <place id="22">
-         <name>
-            <graphics>
-               <offset x="0" y="-43"/>
-            </graphics>
-            <text>BROKE</text>
-         </name>
-         <graphics>
-            <position x="471" y="332"/>
-            <dimension x="70" y="68"/>
-            <fill color="rgb(0,0,255)"/>
-            <line color="rgb(0,0,0)"/>
-         </graphics>
-      </place>
-      <transition id="24">
-         <uplink_label>
-            <graphics>
-               <offset x="12" y="-57"/>
-            </graphics>
-            <text>BERECHARGED</text>
-         </uplink_label>
-         <name>
-            <graphics>
-               <offset x="2" y="45"/>
-            </graphics>
-            <text>TD3</text>
-         </name>
-         <graphics>
-            <position x="567" y="332"/>
-            <dimension x="15" y="73"/>
-            <fill color="rgb(0,0,255)"/>
-            <line color="rgb(0,0,0)"/>
-         </graphics>
-      </transition>
-      <arc id="25" source="11" target="24">
-         <inscription>
-            <graphics>
-               <offset x="-2" y="-9"/>
-            </graphics>
-            <text>3</text>
-         </inscription>
-         <type>
-            <text>ordinary</text>
-         </type>
-         <graphics>
-            <line color="rgb(0,0,0)" style="solid"/>
-         </graphics>
-      </arc>
-      <arc id="26" source="24" target="22">
+      <arc id="66" source="61" target="64">
          <inscription>
             <graphics>
                <offset x="1" y="-9"/>
@@ -260,93 +161,44 @@
             <line color="rgb(0,0,0)" style="solid"/>
          </graphics>
       </arc>
-      <transition id="27">
-         <name>
-            <graphics>
-               <offset x="0" y="44"/>
-            </graphics>
-            <text>TD4</text>
-         </name>
-         <horizontal_label>
-            <graphics>
-               <offset x="2" y="-47"/>
-            </graphics>
-            <text>RECHARGE</text>
-         </horizontal_label>
-         <graphics>
-            <position x="381" y="333"/>
-            <dimension x="15" y="73"/>
-            <fill color="rgb(0,0,255)"/>
-            <line color="rgb(0,0,0)"/>
-         </graphics>
-      </transition>
-      <arc id="28" source="22" target="27">
-         <inscription>
-            <graphics>
-               <offset x="3" y="-9"/>
-            </graphics>
-            <text>1</text>
-         </inscription>
-         <type>
-            <text>ordinary</text>
-         </type>
-         <graphics>
-            <line color="rgb(0,0,0)" style="solid"/>
-         </graphics>
-      </arc>
-      <arc id="29" source="15" target="13">
-         <inscription>
-            <graphics>
-               <offset x="28" y="-5"/>
-            </graphics>
-            <text>1</text>
-         </inscription>
-         <type>
-            <text>ordinary</text>
-         </type>
-         <graphics>
-            <position x="902" y="331"/>
-            <line color="rgb(0,0,0)" style="solid"/>
-         </graphics>
-      </arc>
-      <place id="45">
+      <place id="67">
          <name>
             <graphics>
                <offset x="0" y="-43"/>
             </graphics>
-            <text>READY</text>
+            <text>BROKE</text>
          </name>
          <graphics>
-            <position x="271" y="275"/>
+            <position x="423" y="297"/>
             <dimension x="70" y="68"/>
             <fill color="rgb(0,0,255)"/>
             <line color="rgb(0,0,0)"/>
          </graphics>
       </place>
-      <transition id="48">
+      <transition id="69">
+         <uplink_label>
+            <graphics>
+               <offset x="2" y="-49"/>
+            </graphics>
+            <text>BERECHARGED</text>
+         </uplink_label>
          <name>
             <graphics>
                <offset x="0" y="44"/>
             </graphics>
-            <text>TD4</text>
+            <text>TA1</text>
          </name>
-         <uplink_label>
-            <graphics>
-               <offset x="2" y="-47"/>
-            </graphics>
-            <text>BACK</text>
-         </uplink_label>
          <graphics>
-            <position x="377" y="210"/>
+            <position x="540" y="298"/>
             <dimension x="15" y="73"/>
             <fill color="rgb(0,0,255)"/>
             <line color="rgb(0,0,0)"/>
          </graphics>
       </transition>
-      <arc id="51" source="27" target="45">
+      <arc id="70" source="69" target="67">
          <inscription>
             <graphics>
-               <offset x="4" y="-10"/>
+               <offset x="0" y="-10"/>
             </graphics>
             <text>1</text>
          </inscription>
@@ -357,10 +209,30 @@
             <line color="rgb(0,0,0)" style="solid"/>
          </graphics>
       </arc>
-      <arc id="52" source="45" target="48">
+      <transition id="71">
+         <horizontal_label>
+            <graphics>
+               <offset x="-2" y="-51"/>
+            </graphics>
+            <text>RECHARGE</text>
+         </horizontal_label>
+         <name>
+            <graphics>
+               <offset x="0" y="44"/>
+            </graphics>
+            <text>TA2</text>
+         </name>
+         <graphics>
+            <position x="316" y="298"/>
+            <dimension x="15" y="73"/>
+            <fill color="rgb(0,0,255)"/>
+            <line color="rgb(0,0,0)"/>
+         </graphics>
+      </transition>
+      <arc id="73" source="67" target="71">
          <inscription>
             <graphics>
-               <offset x="-5" y="-10"/>
+               <offset x="1" y="-10"/>
             </graphics>
             <text>1</text>
          </inscription>
@@ -371,12 +243,88 @@
             <line color="rgb(0,0,0)" style="solid"/>
          </graphics>
       </arc>
-      <arc id="53" source="48" target="18">
+      <arc id="75" source="64" target="69">
          <inscription>
             <graphics>
-               <offset x="0" y="-12"/>
+               <offset x="-3" y="-11"/>
             </graphics>
-            <text>3</text>
+            <text>5</text>
+         </inscription>
+         <type>
+            <text>ordinary</text>
+         </type>
+         <graphics>
+            <line color="rgb(0,0,0)" style="solid"/>
+         </graphics>
+      </arc>
+      <place id="89">
+         <name>
+            <graphics>
+               <offset x="0" y="-43"/>
+            </graphics>
+            <text>A_READY</text>
+         </name>
+         <graphics>
+            <position x="194" y="236"/>
+            <dimension x="70" y="68"/>
+            <fill color="rgb(0,0,255)"/>
+            <line color="rgb(0,0,0)"/>
+         </graphics>
+      </place>
+      <transition id="91">
+         <name>
+            <graphics>
+               <offset x="0" y="44"/>
+            </graphics>
+            <text>TA3</text>
+         </name>
+         <uplink_label>
+            <graphics>
+               <offset x="1" y="-51"/>
+            </graphics>
+            <text>BACK</text>
+         </uplink_label>
+         <graphics>
+            <position x="316" y="181"/>
+            <dimension x="15" y="73"/>
+            <fill color="rgb(0,0,255)"/>
+            <line color="rgb(0,0,0)"/>
+         </graphics>
+      </transition>
+      <arc id="93" source="71" target="89">
+         <inscription>
+            <graphics>
+               <offset x="11" y="-6"/>
+            </graphics>
+            <text>1</text>
+         </inscription>
+         <type>
+            <text>ordinary</text>
+         </type>
+         <graphics>
+            <line color="rgb(0,0,0)" style="solid"/>
+         </graphics>
+      </arc>
+      <arc id="94" source="89" target="91">
+         <inscription>
+            <graphics>
+               <offset x="3" y="-17"/>
+            </graphics>
+            <text>1</text>
+         </inscription>
+         <type>
+            <text>ordinary</text>
+         </type>
+         <graphics>
+            <line color="rgb(0,0,0)" style="solid"/>
+         </graphics>
+      </arc>
+      <arc id="95" source="91" target="59">
+         <inscription>
+            <graphics>
+               <offset x="0" y="-10"/>
+            </graphics>
+            <text>5</text>
          </inscription>
          <type>
             <text>ordinary</text>

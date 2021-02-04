@@ -236,6 +236,7 @@ def generate_promela_code(
                         else:
                             for p in produce[transition]['run']:
                                 f.write("           {}\n".format(p))
+                            f.write("           gbchan ?? nt,_,it,_;\n")
                         f.write("           printf(\"Firing outer loop transition {0}\");\n".format(
                             transitions[net][transition]['name'][0]))
             f.write("         fi; sP(_pid, 1);   }\n")

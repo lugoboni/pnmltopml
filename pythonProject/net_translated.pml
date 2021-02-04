@@ -108,9 +108,10 @@ chan gbchan = [255] of {byte, byte, byte, bit};
 /*#####TRANSITION VERTICAL LABELS#######*/
 
 #define BERECHARGED 1
-#define TAKE_ORDER 2
-#define DELIVER 3
-#define BACK 4
+#define BACK 2
+#define TAKE_ORDER 3
+#define DELIVER 4
+#define R_BACK 5
 
 
 /*#####TRANSITION HORIZONTAL LABELS#######*/
@@ -171,17 +172,17 @@ init {
        sP(_pid, 1);
    }
    :: atomic{
-       nempty(MAINTENANCE.d)  ->
+       nempty(MAINTENANCE.d) && gbchan ?? [_,BACK,_,0]  ->
        sP(_pid, 3);
-       gbchan ?? nt,_,_,0;
+       invertMsg(nt, BACK, gbchan);
        transpNetTok(MAINTENANCE.d, ENTRANCE.d, nt);
        printf("Firing transition T4");
        sP(_pid, 1);
    }
    :: atomic{
-       nempty(MAINTENANCE.d) && gbchan ?? [_,BACK,_,0]  ->
+       nempty(MAINTENANCE.d) && gbchan ?? [_,R_BACK,_,0]  ->
        sP(_pid, 3);
-       invertMsg(nt, BACK, gbchan);
+       invertMsg(nt, R_BACK, gbchan);
        transpNetTok(MAINTENANCE.d, WAITING.d, nt);
        printf("Firing transition T5");
        sP(_pid, 1);
@@ -199,6 +200,7 @@ proctype A (chan pc){
    byte OPEN = 5;
    byte WASTE = 0;
    byte BROKE = 0;
+   byte A_READY = 0;
    byte it;
    atomic{
        printf("A setting initial marking\n\n");
@@ -215,7 +217,7 @@ proctype A (chan pc){
            sP(_pid, 1);
        }
        :: d_step{
-           OPEN >= 1 && WASTE >= 5 && ! gbchan ?? [_,BERECHARGED,_,0]  ->
+           WASTE >= 5 && ! gbchan ?? [_,BERECHARGED,_,0]  ->
            gbchan ! _pid,BERECHARGED,2,0
            printf("Firing transition TA1");
        }
@@ -226,7 +228,7 @@ proctype A (chan pc){
            gbchan ?? nt,RECHARGE,_,0;
            gbchan ! _pid,RECHARGE,3,0;
            gbchan ! _pid,RECHARGE,3,1;
-           OPEN = OPEN + 1;
+           A_READY = A_READY + 1;
            printf("Firing transition TA2");
            sP(_pid, 1);
        }
@@ -237,16 +239,25 @@ proctype A (chan pc){
            printf("Firing transition TA2");
            sP(_pid, 1);
        }
+       :: d_step{
+           A_READY >= 1 && ! gbchan ?? [_,BACK,_,0]  ->
+           gbchan ! _pid,BACK,4,0
+           printf("Firing transition TA3");
+       }
        od}
        unless atomic{
        gbchan ?? eval(_pid),_,it,1
          if  :: it == 2 ->
-           OPEN = OPEN - 1;
            WASTE = WASTE - 5;
            BROKE = BROKE + 1;
            printf("Firing outer loop transition TA1");
   :: it == 3 ->
+           gbchan ?? nt,_,it,_;
            printf("Firing outer loop transition TA2");
+  :: it == 4 ->
+           A_READY = A_READY - 1;
+           OPEN = OPEN + 5;
+           printf("Firing outer loop transition TA3");
          fi; sP(_pid, 1);   }
    od; sP(_pid, 1);  }
 
@@ -254,8 +265,9 @@ proctype D (chan pc){
    byte TRAVELING = 0;
    byte WASTE = 0;
    byte RETURNING = 0;
-   byte RESTING = 1;
+   byte RESTING = 3;
    byte BROKE = 0;
+   byte D_READY = 0;
    byte it;
    atomic{
        printf("D setting initial marking\n\n");
@@ -277,12 +289,11 @@ proctype D (chan pc){
            sP(_pid, 3);
            RETURNING = RETURNING - 1;
            WASTE = WASTE + 1;
-           RESTING = RESTING + 1;
            printf("Firing transition TD2");
            sP(_pid, 1);
        }
        :: d_step{
-           RESTING > 0 && WASTE >= 5 && ! gbchan ?? [_,BERECHARGED,_,0]  ->
+           WASTE >= 3 && ! gbchan ?? [_,BERECHARGED,_,0]  ->
            gbchan ! _pid,BERECHARGED,4,0
            printf("Firing transition TD3");
        }
@@ -293,7 +304,7 @@ proctype D (chan pc){
            gbchan ?? nt,RECHARGE,_,0;
            gbchan ! _pid,RECHARGE,5,0;
            gbchan ! _pid,RECHARGE,5,1;
-           RESTING = RESTING + 1;
+           D_READY = D_READY + 1;
            printf("Firing transition TD4");
            sP(_pid, 1);
        }
@@ -304,12 +315,16 @@ proctype D (chan pc){
            printf("Firing transition TD4");
            sP(_pid, 1);
        }
+       :: d_step{
+           D_READY >= 1 && ! gbchan ?? [_,BACK,_,0]  ->
+           gbchan ! _pid,BACK,6,0
+           printf("Firing transition TD5");
+       }
        od}
        unless atomic{
        gbchan ?? eval(_pid),_,it,1
          if  :: it == 1 ->
            RESTING = RESTING - 1;
-           rmConf(BERECHARGED, gbchan)
            TRAVELING = TRAVELING + 1;
            printf("Firing outer loop transition TD0");
   :: it == 2 ->
@@ -317,13 +332,16 @@ proctype D (chan pc){
            RETURNING = RETURNING + 1;
            printf("Firing outer loop transition TD1");
   :: it == 4 ->
-           RESTING = RESTING - 1;
-           WASTE = WASTE - 5;
-           rmConf(TAKE_ORDER, gbchan)
+           WASTE = WASTE - 3;
            BROKE = BROKE + 1;
            printf("Firing outer loop transition TD3");
   :: it == 5 ->
+           gbchan ?? nt,_,it,_;
            printf("Firing outer loop transition TD4");
+  :: it == 6 ->
+           D_READY = D_READY - 1;
+           RESTING = RESTING + 3;
+           printf("Firing outer loop transition TD5");
          fi; sP(_pid, 1);   }
    od; sP(_pid, 1);  }
 
@@ -355,14 +373,15 @@ proctype R (chan pc){
            sP(_pid, 1);
        }
        :: d_step{
-           WORKING >= 1 && ! gbchan ?? [_,BACK,_,0]  ->
-           gbchan ! _pid,BACK,2,0
+           WORKING >= 1 && ! gbchan ?? [_,R_BACK,_,0]  ->
+           gbchan ! _pid,R_BACK,2,0
            printf("Firing transition TR1");
        }
        od}
        unless atomic{
        gbchan ?? eval(_pid),_,it,1
          if  :: it == 1 ->
+           gbchan ?? nt,_,it,_;
            printf("Firing outer loop transition TR0");
   :: it == 2 ->
            WORKING = WORKING - 1;
