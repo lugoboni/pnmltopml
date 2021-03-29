@@ -1,0 +1,285 @@
+<pnml xmlns="NestedSpin">
+   <net id="netId1608471763398" type="NestedSpin">
+      <transition id="224">
+         <name>
+            <graphics>
+               <offset x="2" y="46"/>
+            </graphics>
+            <text>F2T1</text>
+         </name>
+         <horizontal_label>
+            <graphics>
+               <offset x="-1" y="-48"/>
+            </graphics>
+            <text>L1</text>
+         </horizontal_label>
+         <graphics>
+            <position x="148" y="120"/>
+            <dimension x="15" y="73"/>
+            <fill color="rgb(0,0,255)"/>
+            <line color="rgb(0,0,0)"/>
+         </graphics>
+      </transition>
+      <place id="226">
+         <name>
+            <graphics>
+               <offset x="0" y="-49"/>
+            </graphics>
+            <text>F2P1</text>
+         </name>
+         <initialMarking>
+            <graphics>
+               <offset x="0" y="0"/>
+            </graphics>
+            <text>[]</text>
+         </initialMarking>
+         <graphics>
+            <position x="58" y="120"/>
+            <dimension x="70" y="68"/>
+            <fill color="rgb(0,0,255)"/>
+            <line color="rgb(0,0,0)"/>
+         </graphics>
+      </place>
+      <arc id="227" source="226" target="224">
+         <type>
+            <text>ordinary</text>
+         </type>
+         <graphics>
+            <line color="rgb(0,0,0)" style="solid"/>
+         </graphics>
+      </arc>
+      <place id="230">
+         <name>
+            <graphics>
+               <offset x="0" y="-49"/>
+            </graphics>
+            <text>F2P2</text>
+         </name>
+         <graphics>
+            <position x="239" y="121"/>
+            <dimension x="70" y="68"/>
+            <fill color="rgb(0,0,255)"/>
+            <line color="rgb(0,0,0)"/>
+         </graphics>
+      </place>
+      <place id="232">
+         <name>
+            <graphics>
+               <offset x="0" y="-49"/>
+            </graphics>
+            <text>F2P3</text>
+         </name>
+         <graphics>
+            <position x="410" y="122"/>
+            <dimension x="70" y="68"/>
+            <fill color="rgb(0,0,255)"/>
+            <line color="rgb(0,0,0)"/>
+         </graphics>
+      </place>
+      <place id="234">
+         <name>
+            <graphics>
+               <offset x="0" y="-49"/>
+            </graphics>
+            <text>F2P4</text>
+         </name>
+         <graphics>
+            <position x="583" y="123"/>
+            <dimension x="70" y="68"/>
+            <fill color="rgb(0,0,255)"/>
+            <line color="rgb(0,0,0)"/>
+         </graphics>
+      </place>
+      <place id="236">
+         <name>
+            <graphics>
+               <offset x="0" y="-49"/>
+            </graphics>
+            <text>F2P5</text>
+         </name>
+         <graphics>
+            <position x="728" y="124"/>
+            <dimension x="70" y="68"/>
+            <fill color="rgb(0,0,255)"/>
+            <line color="rgb(0,0,0)"/>
+         </graphics>
+      </place>
+      <transition id="240">
+         <name>
+            <graphics>
+               <offset x="2" y="46"/>
+            </graphics>
+            <text>F2T4</text>
+         </name>
+         <horizontal_label>
+            <graphics>
+               <offset x="0" y="-49"/>
+            </graphics>
+            <text>L4</text>
+         </horizontal_label>
+         <graphics>
+            <position x="498" y="123"/>
+            <dimension x="15" y="73"/>
+            <fill color="rgb(0,0,255)"/>
+            <line color="rgb(0,0,0)"/>
+         </graphics>
+      </transition>
+      <transition id="242">
+         <name>
+            <graphics>
+               <offset x="2" y="46"/>
+            </graphics>
+            <text>F2T3</text>
+         </name>
+         <horizontal_label>
+            <graphics>
+               <offset x="2" y="-47"/>
+            </graphics>
+            <text>L3</text>
+         </horizontal_label>
+         <graphics>
+            <position x="331" y="240"/>
+            <dimension x="15" y="73"/>
+            <fill color="rgb(0,0,255)"/>
+            <line color="rgb(0,0,0)"/>
+         </graphics>
+      </transition>
+      <transition id="244">
+         <name>
+            <graphics>
+               <offset x="2" y="46"/>
+            </graphics>
+            <text>F2T2</text>
+         </name>
+         <graphics>
+            <position x="332" y="122"/>
+            <dimension x="15" y="73"/>
+            <fill color="rgb(0,0,255)"/>
+            <line color="rgb(0,0,0)"/>
+         </graphics>
+      </transition>
+      <transition id="246">
+         <name>
+            <graphics>
+               <offset x="2" y="46"/>
+            </graphics>
+            <text>F2T6</text>
+         </name>
+         <uplink_label>
+            <graphics>
+               <offset x="4" y="-45"/>
+            </graphics>
+            <text>Lambda</text>
+         </uplink_label>
+         <graphics>
+            <position x="794" y="125"/>
+            <dimension x="15" y="73"/>
+            <fill color="rgb(0,0,255)"/>
+            <line color="rgb(0,0,0)"/>
+         </graphics>
+      </transition>
+      <transition id="248">
+         <name>
+            <graphics>
+               <offset x="2" y="46"/>
+            </graphics>
+            <text>F2T5</text>
+         </name>
+         <horizontal_label>
+            <graphics>
+               <offset x="2" y="-46"/>
+            </graphics>
+            <text>L8</text>
+         </horizontal_label>
+         <graphics>
+            <position x="661" y="124"/>
+            <dimension x="15" y="73"/>
+            <fill color="rgb(0,0,255)"/>
+            <line color="rgb(0,0,0)"/>
+         </graphics>
+      </transition>
+      <arc id="250" source="224" target="230">
+         <type>
+            <text>ordinary</text>
+         </type>
+         <graphics>
+            <line color="rgb(0,0,0)" style="solid"/>
+         </graphics>
+      </arc>
+      <arc id="251" source="230" target="242">
+         <type>
+            <text>ordinary</text>
+         </type>
+         <graphics>
+            <line color="rgb(0,0,0)" style="solid"/>
+         </graphics>
+      </arc>
+      <arc id="252" source="230" target="244">
+         <type>
+            <text>ordinary</text>
+         </type>
+         <graphics>
+            <line color="rgb(0,0,0)" style="solid"/>
+         </graphics>
+      </arc>
+      <arc id="253" source="244" target="232">
+         <type>
+            <text>ordinary</text>
+         </type>
+         <graphics>
+            <line color="rgb(0,0,0)" style="solid"/>
+         </graphics>
+      </arc>
+      <arc id="254" source="242" target="232">
+         <type>
+            <text>ordinary</text>
+         </type>
+         <graphics>
+            <line color="rgb(0,0,0)" style="solid"/>
+         </graphics>
+      </arc>
+      <arc id="255" source="232" target="240">
+         <type>
+            <text>ordinary</text>
+         </type>
+         <graphics>
+            <line color="rgb(0,0,0)" style="solid"/>
+         </graphics>
+      </arc>
+      <arc id="257" source="240" target="234">
+         <type>
+            <text>ordinary</text>
+         </type>
+         <graphics>
+            <line color="rgb(0,0,0)" style="solid"/>
+         </graphics>
+      </arc>
+      <arc id="259" source="234" target="248">
+         <type>
+            <text>ordinary</text>
+         </type>
+         <graphics>
+            <line color="rgb(0,0,0)" style="solid"/>
+         </graphics>
+      </arc>
+      <arc id="260" source="248" target="236">
+         <type>
+            <text>ordinary</text>
+         </type>
+         <graphics>
+            <line color="rgb(0,0,0)" style="solid"/>
+         </graphics>
+      </arc>
+      <arc id="261" source="236" target="246">
+         <type>
+            <text>ordinary</text>
+         </type>
+         <graphics>
+            <line color="rgb(0,0,0)" style="solid"/>
+         </graphics>
+      </arc>
+      <name>
+         <text>LWF2</text>
+      </name>
+   </net>
+</pnml>

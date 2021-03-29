@@ -1,0 +1,211 @@
+<pnml xmlns="NestedSpin">
+   <net id="netId1608471702045" type="NestedSpin">
+      <transition id="1">
+         <name>
+            <graphics>
+               <offset x="2" y="46"/>
+            </graphics>
+            <text>T1</text>
+         </name>
+         <graphics>
+            <position x="183" y="219"/>
+            <dimension x="15" y="73"/>
+            <fill color="rgb(0,0,255)"/>
+            <line color="rgb(0,0,0)"/>
+         </graphics>
+      </transition>
+      <place id="2">
+         <name>
+            <graphics>
+               <offset x="-1" y="-52"/>
+            </graphics>
+            <text>p2</text>
+         </name>
+         <graphics>
+            <position x="355" y="219"/>
+            <dimension x="70" y="68"/>
+            <fill color="rgb(64,64,64)"/>
+            <line color="rgb(0,0,0)"/>
+         </graphics>
+      </place>
+      <arc id="4" source="1" target="2">
+         <inscription>
+            <graphics>
+               <offset x="-1" y="-7"/>
+            </graphics>
+            <text>LWF2</text>
+         </inscription>
+         <inscription>
+            <graphics>
+               <offset x="34" y="-7"/>
+            </graphics>
+            <text>AC</text>
+         </inscription>
+         <inscription>
+            <graphics>
+               <offset x="-41" y="-7"/>
+            </graphics>
+            <text>LWF1</text>
+         </inscription>
+         <type>
+            <text>ordinary</text>
+         </type>
+         <graphics>
+            <line color="rgb(0,0,0)" style="solid"/>
+         </graphics>
+      </arc>
+      <place id="14">
+         <name>
+            <graphics>
+               <offset x="0" y="-49"/>
+            </graphics>
+            <text>p1</text>
+         </name>
+         <initialMarking>
+            <graphics>
+               <offset x="0" y="0"/>
+            </graphics>
+            <text>[]</text>
+         </initialMarking>
+         <graphics>
+            <position x="105" y="219"/>
+            <dimension x="70" y="68"/>
+            <fill color="rgb(0,0,255)"/>
+            <line color="rgb(0,0,0)"/>
+         </graphics>
+      </place>
+      <arc id="15" source="14" target="1">
+         <type>
+            <text>ordinary</text>
+         </type>
+         <graphics>
+            <line color="rgb(0,0,0)" style="solid"/>
+         </graphics>
+      </arc>
+      <transition id="24">
+         <name>
+            <graphics>
+               <offset x="2" y="46"/>
+            </graphics>
+            <text>T2</text>
+         </name>
+         <downlink_label>
+            <graphics>
+               <offset x="-1" y="-47"/>
+            </graphics>
+            <text>Lambda</text>
+         </downlink_label>
+         <graphics>
+            <position x="454" y="219"/>
+            <dimension x="15" y="73"/>
+            <fill color="rgb(0,0,255)"/>
+            <line color="rgb(0,0,0)"/>
+         </graphics>
+      </transition>
+      <arc id="27" source="2" target="24">
+         <inscription>
+            <graphics>
+               <offset x="0" y="-10"/>
+            </graphics>
+            <text>x</text>
+         </inscription>
+         <type>
+            <text>ordinary</text>
+         </type>
+         <graphics>
+            <line color="rgb(0,0,0)" style="solid"/>
+         </graphics>
+      </arc>
+      <place id="28">
+         <name>
+            <graphics>
+               <offset x="0" y="-49"/>
+            </graphics>
+            <text>p3</text>
+         </name>
+         <graphics>
+            <position x="563" y="219"/>
+            <dimension x="70" y="68"/>
+            <fill color="rgb(0,0,255)"/>
+            <line color="rgb(0,0,0)"/>
+         </graphics>
+      </place>
+      <arc id="30" source="24" target="28">
+         <type>
+            <text>ordinary</text>
+         </type>
+         <graphics>
+            <line color="rgb(0,0,0)" style="solid"/>
+         </graphics>
+      </arc>
+      <transition id="31">
+         <name>
+            <graphics>
+               <offset x="2" y="46"/>
+            </graphics>
+            <text>T3</text>
+         </name>
+         <graphics>
+            <position x="657" y="218"/>
+            <dimension x="15" y="73"/>
+            <fill color="rgb(0,0,255)"/>
+            <line color="rgb(0,0,0)"/>
+         </graphics>
+      </transition>
+      <arc id="33" source="28" target="31">
+         <inscription>
+            <graphics>
+               <offset x="-1" y="-9"/>
+            </graphics>
+            <text>2</text>
+         </inscription>
+         <type>
+            <text>ordinary</text>
+         </type>
+         <graphics>
+            <line color="rgb(0,0,0)" style="solid"/>
+         </graphics>
+      </arc>
+      <place id="34">
+         <name>
+            <graphics>
+               <offset x="0" y="-49"/>
+            </graphics>
+            <text>p4</text>
+         </name>
+         <graphics>
+            <position x="746" y="218"/>
+            <dimension x="70" y="68"/>
+            <fill color="rgb(0,0,255)"/>
+            <line color="rgb(0,0,0)"/>
+         </graphics>
+      </place>
+      <arc id="36" source="31" target="34">
+         <type>
+            <text>ordinary</text>
+         </type>
+         <graphics>
+            <line color="rgb(0,0,0)" style="solid"/>
+         </graphics>
+      </arc>
+      <arc id="37" source="2" target="31">
+         <inscription>
+            <graphics>
+               <offset x="-5" y="32"/>
+            </graphics>
+            <text>z</text>
+         </inscription>
+         <type>
+            <text>ordinary</text>
+         </type>
+         <graphics>
+            <position x="402" y="320"/>
+            <position x="586" y="320"/>
+            <line color="rgb(0,0,0)" style="solid"/>
+         </graphics>
+      </arc>
+      <name>
+         <text>SN</text>
+      </name>
+   </net>
+</pnml>

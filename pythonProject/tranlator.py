@@ -83,7 +83,7 @@ def translate_by_inter_dictionaries(only_places, only_transitions, only_arcs, ch
             fire_uplink_condition = "it == {0}".format(only_transitions[transition]['promela_id'])
             sentences['outer_loop_conditions'].append(fire_uplink_condition)
 
-            condition = "! gbchan ?? [_,{0},_,0]".format(uplink_label)
+            condition = "! gbchan ?? [eval(_pid),{0},_,0]".format(uplink_label)
             sentences['uplink_specific_conditions'].append(condition)
 
 
@@ -95,7 +95,8 @@ def translate_by_inter_dictionaries(only_places, only_transitions, only_arcs, ch
             sentences['horizontal_specific_conditions_b'].append("! gbchan??[eval(_pid),{0},_,0] && gbchan??[_,{0},_,0]".format(horizontal_label))
             sentences['outer_loop_conditions'].append("it == {0}".format(only_transitions[transition]['promela_id']))
 
-            consume_actions['consume'].append("gbchan ?? nt,{0},_,0;\n".format(tansition_label))
+            consume_actions['consume'].append("invertMsg(nt, {0}, gbchan);\n".format(tansition_label))
+            consume_actions['consume'].append("sP(nt, 3);\n".format(tansition_label))
             produce_actions['general'].append("gbchan ! _pid,{0},{1},0;\n".format(tansition_label, only_transitions[transition]['promela_id']))
             produce_actions['general'].append(
                 "gbchan ! _pid,{0},{1},1;\n".format(tansition_label, only_transitions[transition]['promela_id']))
@@ -157,6 +158,8 @@ def translate_by_inter_dictionaries(only_places, only_transitions, only_arcs, ch
                                     sentence = "gbchan ?? nt,_,_,0;\n"
                                 if sentence not in produce_actions['transport']:
                                     produce_actions['transport'].append(sentence)
+                                    if "invertMsg" in sentence:
+                                        produce_actions['transport'].append("sP(nt, 3);\n")
 
                                 sentence = "transpNetTok({0}.d, {1}.d, nt);\n".format(only_places[arc[0]]['name'][0], only_places[out_arc['target']]['name'][0])
                                 produce_actions['transport'].append(sentence)
@@ -169,8 +172,15 @@ def translate_by_inter_dictionaries(only_places, only_transitions, only_arcs, ch
                             if tansition_label:
                                 sentence = "invertMsg(nt, {0}, gbchan);\n".format(tansition_label)
                                 consume_actions['consume'].append(sentence)
+                                sentence = "sP(nt, 3);\n".format(tansition_label)
+                                consume_actions['consume'].append(sentence)
+                            sentence = "{0}.d ?? nt,255,_,0;\n".format(only_places[arc[0]]['name'][0])
+                            consume_actions['consume'].append(sentence)
+                            sentence = "sP(nt, 3);\n".format(only_places[arc[0]]['name'][0])
+                            consume_actions['consume'].append(sentence)
                             sentence = "consNetTok({0}.d,nt);\n".format(only_places[arc[0]]['name'][0])
                             consume_actions['consume'].append(sentence)
+
             else:
                 if arc[1]['marking'].keys():
                     for mark in arc[1]['marking'].keys():
@@ -226,12 +236,12 @@ def translate_by_inter_dictionaries(only_places, only_transitions, only_arcs, ch
                             produce_actions['run'].append(sentence)
                             sentence = "{0}.d ! nt,255,0,0;\n".format(only_places[arc['target']]['name'][0])
                             produce_actions['run'].append(sentence)
-                            if tansition_label:
-                                sentence = "gbchan ! _pid,{0},{1},0;\n".format(tansition_label,
-                                                                       only_transitions[transition]['promela_id'])
-                            else:
-                                sentence = "gbchan ! _pid,0,{0},1;\n".format(only_transitions[transition]['promela_id'])
-                            produce_actions['general'].append(sentence)
+                            # if tansition_label:
+                            #     sentence = "gbchan ! _pid,{0},{1},0;\n".format(tansition_label,
+                            #                                            only_transitions[transition]['promela_id'])
+                            # else:
+                            #     sentence = "gbchan ! _pid,0,{0},1;\n".format(only_transitions[transition]['promela_id'])
+                            # produce_actions['general'].append(sentence)
 
                             if not sentences['outer_loop_conditions']:
                                 sentences['outer_loop_conditions'].append("it == {0}".format(only_transitions[transition]['promela_id']))
