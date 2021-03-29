@@ -1,0 +1,137 @@
+<pnml xmlns="NestedSpin">
+   <net id="netId1606949650735" type="NestedSpin">
+      <place id="101">
+         <name>
+            <graphics>
+               <offset x="0" y="-43"/>
+            </graphics>
+            <text>R_WAITING</text>
+         </name>
+         <initialMarking>
+            <graphics>
+               <offset x="0" y="0"/>
+            </graphics>
+            <text>[]</text>
+         </initialMarking>
+         <graphics>
+            <position x="484" y="377"/>
+            <dimension x="70" y="68"/>
+            <fill color="rgb(0,0,255)"/>
+            <line color="rgb(0,0,0)"/>
+         </graphics>
+      </place>
+      <transition id="104">
+         <horizontal_label>
+            <graphics>
+               <offset x="4" y="-49"/>
+            </graphics>
+            <text>RECHARGE</text>
+         </horizontal_label>
+         <name>
+            <graphics>
+               <offset x="-1" y="45"/>
+            </graphics>
+            <text>TR0</text>
+         </name>
+         <graphics>
+            <position x="623" y="307"/>
+            <dimension x="15" y="73"/>
+            <fill color="rgb(0,0,255)"/>
+            <line color="rgb(0,0,0)"/>
+         </graphics>
+      </transition>
+      <place id="105">
+         <name>
+            <graphics>
+               <offset x="0" y="-43"/>
+            </graphics>
+            <text>WORKING</text>
+         </name>
+         <graphics>
+            <position x="762" y="375"/>
+            <dimension x="70" y="68"/>
+            <fill color="rgb(0,0,255)"/>
+            <line color="rgb(0,0,0)"/>
+         </graphics>
+      </place>
+      <transition id="107">
+         <uplink_label>
+            <graphics>
+               <offset x="-1" y="-48"/>
+            </graphics>
+            <text>R_BACK</text>
+         </uplink_label>
+         <name>
+            <graphics>
+               <offset x="0" y="45"/>
+            </graphics>
+            <text>TR1</text>
+         </name>
+         <graphics>
+            <position x="623" y="431"/>
+            <dimension x="15" y="73"/>
+            <fill color="rgb(0,0,255)"/>
+            <line color="rgb(0,0,0)"/>
+         </graphics>
+      </transition>
+      <arc id="108" source="101" target="104">
+         <inscription>
+            <graphics>
+               <offset x="0" y="-11"/>
+            </graphics>
+            <text>1</text>
+         </inscription>
+         <type>
+            <text>ordinary</text>
+         </type>
+         <graphics>
+            <line color="rgb(0,0,0)" style="solid"/>
+         </graphics>
+      </arc>
+      <arc id="109" source="104" target="105">
+         <inscription>
+            <graphics>
+               <offset x="-1" y="-13"/>
+            </graphics>
+            <text>1</text>
+         </inscription>
+         <type>
+            <text>ordinary</text>
+         </type>
+         <graphics>
+            <line color="rgb(0,0,0)" style="solid"/>
+         </graphics>
+      </arc>
+      <arc id="110" source="105" target="107">
+         <inscription>
+            <graphics>
+               <offset x="-3" y="-10"/>
+            </graphics>
+            <text>1</text>
+         </inscription>
+         <type>
+            <text>ordinary</text>
+         </type>
+         <graphics>
+            <line color="rgb(0,0,0)" style="solid"/>
+         </graphics>
+      </arc>
+      <arc id="111" source="107" target="101">
+         <inscription>
+            <graphics>
+               <offset x="2" y="-12"/>
+            </graphics>
+            <text>1</text>
+         </inscription>
+         <type>
+            <text>ordinary</text>
+         </type>
+         <graphics>
+            <line color="rgb(0,0,0)" style="solid"/>
+         </graphics>
+      </arc>
+      <name>
+         <text>untitled</text>
+      </name>
+   </net>
+</pnml>

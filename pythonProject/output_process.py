@@ -6,13 +6,6 @@ PROMELA_PRE_FUNCTIONS = [
     "\n\n",
     "/*###############################################*/\n",
     "\n\n",
-    "chan cha =[18] of {byte,byte}; hidden byte j, size_cha;\n",
-    "\n\n",
-    "\n\n",
-    "byte v0,v1,v2,v3;\n",
-    "\n\n",
-    "/*###############################################*/\n",
-    "\n\n",
     "inline consNetTok(c, p) {\n",
     "  do:: c ?? [eval(p),_,_,0] -> c ?? eval(p),_,_,0\n",
     "    :: else -> break\n",
@@ -26,15 +19,23 @@ PROMELA_PRE_FUNCTIONS = [
     "/*###############################################*/\n",
     "\n\n",
     "inline transpNetTok(ch, och, p){\n",
+    "  byte v0,v1,v2,v3;\n",
     "  do:: ch ?? [eval(p),_,_,_] ->\n",
     "       ch ?? eval(p),v1,v2,v3;\n",
     "       och ! p,v1,v2,v3;\n",
     "    :: else -> break\n",
     "  od; skip }\n",
     "\n\n",
+    "\n\n",
+    "inline invertMsg(nt, lbl, ch){\n",
+    "    byte v1;\n\n\n",
+    "    if:: ch ?? [nt, lbl, v1, 0] ->\n",
+    "    ch ?? nt, lbl, v1, 0;\n",
+    "    ch ! nt, lbl, v1, 1;\n",
+    "    :: else fi\n",
+    "    }\n",
+    "\n\n",
     "/*###############################################*/\n",
-    "hidden byte i;\n",
-    "hidden unsigned nt:4,lt:4, nt1:4, lt1:4;\n",
     "\n\n",
     "inline recMsg(ch,f0,f1) {             /* ch - ordered \"channel, f0 - output variable, f1 - constant value */\n",
     "ch ! 0,f1;\n",
@@ -69,13 +70,18 @@ PROMELA_PRE_FUNCTIONS = [
     "\n\n",
     "}\n",
     "\n\n",
+    "inline dT(l) {\n",
+    "if :: gbchan ?? [eval(_pid),_,l,0] ->\n",
+    "gbchan ?? eval(_pid),_,l,0\n",
+    ":: else fi }\n",
+    "\n\n",
     "/*###############################################*/\n",
     "\n\n",
     "#define sP(a,b)    set_priority(a,b)\n",
     "\n\n",
     "/*###############################################*/\n",
     "\n\n",
-    "chan gbChan = [18] of {byte, byte, byte, chan};\n",
+    "chan gbchan = [255] of {byte, byte, byte, bit};\n",
     "\n\n",
     "/*###############################################*/ \n"]
 
@@ -95,6 +101,7 @@ def generate_promela_code(
         line = "#define " + label + " " + str(hlabels[label]) + "\n"
         f.write(line)
     f.write("\n\n/*#########SHARED PLACES##############*/\n\n")
+
     for shared_place in shared_places:
         line = "byte {0} =  {1}\n".format(shared_place[0], str(shared_place[1]))
         f.write(line)
@@ -106,6 +113,7 @@ def generate_promela_code(
                 if "NetPlace" in mark or "byte" in mark and "it" not in mark:
                     f.write(mark)
             f.write("init {\n\n")
+            f.write("byte nt;\n")
             f.write("   atomic{\n")
             f.write("       printf(\"SN setting initial marking\\n\\n\");\n")
             for mark in initial_marking:
@@ -113,7 +121,7 @@ def generate_promela_code(
                     f.write("       ")
                     f.write(mark)
             f.write("   }\n\n")
-            f.write("   do\n")
+            f.write("   end: do\n")
             for transition in transitions[net].keys():
                 f.write("   :: atomic{\n")
                 enable = ""
@@ -147,6 +155,8 @@ def generate_promela_code(
             net_name = net
             f.write("proctype {} (chan pc)".format(net_name))
             f.write("{\n")
+            f.write("   byte nt;\n")
+            f.write("   byte v0;\n")
             for mark in initial_marking:
                 if "run" not in mark:
                     f.write("   {}".format(mark))
@@ -157,8 +167,8 @@ def generate_promela_code(
                     f.write("       ")
                     f.write(mark)
             f.write("   }\n")
-            f.write("   do::{\n")
-            f.write("   do\n")
+            f.write("   end: do::{\n")
+            f.write("   end1: do\n")
             for transition in transitions[net].keys():
                 f.write("       :: d_step{\n")
                 enable = ""
@@ -173,22 +183,28 @@ def generate_promela_code(
                 enable = enable[:-3]
                 f.write("           {} ->\n".format(enable))
                 if(enable_tests[transition]['uplink_specific_conditions']):
-                    sentence = "pc ! _pid,{0},{1},0\n".format(transitions[net][transition]['uplink_label'][0],transitions[net][transition]['promela_id'])
+                    sentence = "gbchan ! _pid,{0},{1},0\n".format(transitions[net][transition]['uplink_label'][0],transitions[net][transition]['promela_id'])
                     f.write("           {}".format(sentence))
                     f.write("           printf(\"Firing transition {0}\");\n".format(transitions[net][transition]['name'][0]))
                     f.write("       }\n")
                 else:
                     f.write("           sP(_pid, 3);\n")
-                    for c in consume[transition]['general']:
-                        f.write("           {}".format(c))
+                    if not enable_tests[transition]['outer_loop_conditions']:
+                        for c in consume[transition]['general']:
+                            f.write("           {}".format(c))
                     for c in consume[transition]['consume']:
                         f.write("           {}".format(c))
                     for p in produce[transition]['transport']:
                         f.write("           {}".format(p))
-                    for p in produce[transition]['general']:
-                        f.write("           {}".format(p))
+                    if not enable_tests[transition]['outer_loop_conditions']:
+                        for p in produce[transition]['general']:
+                            f.write("           {}".format(p))
+                    else:
+                        for p in produce[transition]['general']:
+                            if "+" not in p:
+                                f.write("           {}".format(p))
                     f.write("           printf(\"Firing transition {0}\");\n".format(transitions[net][transition]['name'][0]))
-                    f.write("           sP(_pid, 1);\n")
+                    # f.write("           sP(_pid, 1);\n")
                     f.write("       }\n")
                 if enable_tests[transition]['horizontal_specific_conditions_a']:
                     f.write("       :: d_step{\n")
@@ -204,16 +220,18 @@ def generate_promela_code(
                     enable = enable[:-3]
                     f.write("           {} ->\n".format(enable))
                     f.write("           sP(_pid, 3);\n")
-                    f.write("            pc!_pid,{0},{1},0;\n".format(transitions[net][transition]['horizontal_label'][0],transitions[net][transition]['promela_id']))
+                    f.write("            gbchan!_pid,{0},{1},0;\n".format(transitions[net][transition]['horizontal_label'][0],transitions[net][transition]['promela_id']))
                     f.write("           printf(\"Firing transition {0}\");\n".format(
                         transitions[net][transition]['name'][0]))
-                    f.write("           sP(_pid, 1);\n")
+                    # f.write("           sP(_pid, 1);\n")
                     f.write("       }\n")
 
             f.write("       od}\n")
             if enable_tests[transition]['outer_loop_conditions']:
                 f.write("       unless atomic{\n")
-                f.write("       pc ?? [eval(_pid),_,it,1]\n         if")
+                f.write("       gbchan ?? eval(_pid),v0,it,1 -> \n")
+                f.write("       if\n")
+                f.write("       :: it == 0 && v0 == 255 -> break;\n")
                 for transition in transitions[net].keys():
                     for outer_condition in enable_tests[transition]['outer_loop_conditions']:
                         f.write("  :: {} ->\n".format(outer_condition))
@@ -231,10 +249,15 @@ def generate_promela_code(
                         else:
                             for p in produce[transition]['run']:
                                 f.write("           {}\n".format(p))
-                        f.write("           pc ?? eval(_pid),_,it,1\n")
+                            for c in consume[transition]['general']:
+                                if "?" not in c:
+                                    f.write("           {}".format(c))
+                            for p in produce[transition]['general']:
+                                if "!" not in p:
+                                    f.write("           {}".format(p))
+                            f.write("           dT(it);\n")
                         f.write("           printf(\"Firing outer loop transition {0}\");\n".format(
                             transitions[net][transition]['name'][0]))
-                        f.write("           break\n")
             f.write("         fi; sP(_pid, 1);   }\n")
             f.write("   od; sP(_pid, 1);  }\n\n")
 

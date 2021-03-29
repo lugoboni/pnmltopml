@@ -23,9 +23,11 @@ def create_nets_info(nets):
             nets_info[net]['label'] = net_label
             net_label += 1
             nets_info[net]['tokens'] = set()
+            nets_info[net]['transitions_labels'] = set()
         else:
             nets_info[net] = dict() if net not in nets_info.keys() else None
             nets_info[net]['tokens'] = set()
+            nets_info[net]['transitions_labels'] = set()
         nets_info[net]['id'] = 0
     return nets_info
 
@@ -50,20 +52,27 @@ def parse_transitions_and_labels(root, transition_dicts, nets_info, uplink, down
         horizontal_label = transition[4][0] if transition[4] else None
         transition_id = transition[0]
 
+
         if downlink_label and downlink_label in downlink.keys():
             downlink[downlink_label].append(transition_id)
+            nets_info[root[1]]["transitions_labels"].add(downlink_label)
         elif downlink_label:
             downlink[downlink_label] = [transition_id]
+            nets_info[root[1]]["transitions_labels"].add(downlink_label)
 
         if uplink_label and uplink_label in uplink.keys():
             uplink[uplink_label].append(transition_id)
+            nets_info[root[1]]["transitions_labels"].add(uplink_label)
         elif uplink_label:
             uplink[uplink_label] = [transition_id]
+            nets_info[root[1]]["transitions_labels"].add(uplink_label)
 
         if horizontal_label and horizontal_label in horizontal.keys():
             horizontal[horizontal_label].append(transition_id)
+            nets_info[root[1]]["transitions_labels"].add(horizontal_label)
         elif horizontal_label:
             horizontal[horizontal_label] = [transition_id]
+            nets_info[root[1]]["transitions_labels"].add(horizontal_label)
 
         transition_dict[transition[0]] = dict(
             [
@@ -101,7 +110,6 @@ def parse_places(root, place_dicts, nets_info, shared_places, only_places_dict):
                 nets_info[root[1]]['tokens'].add(mark)
         place[2] = marking
 
-    for place in parsed_place_elements:
         if place[3] and place[3][0] == "shared":
             if BLACK_TOKEN in place[2].keys():
                 shared_places.add((place[1][0], place[2][BLACK_TOKEN]))
@@ -140,7 +148,7 @@ def parse_arcs(root, arc_dicts, nets_info, arc_variables, only_arcs_dict):
 
     for arc in parsed_arc_elements:
         for var in arc[3].keys():
-            if not re.search("[0-9]+", var) and var != BLACK_TOKEN:
+            if not re.search("^[0-9]+", var) and var != BLACK_TOKEN:
                 arc_variables.add(var)
 
         element = dict(
@@ -221,7 +229,7 @@ def init():
                   for splited_filename in splited_filenames])
 
     if len(EXTENSIONS_FILENAMES) != 1 and EXTENSIONS_FILENAMES[0] != "pnml":
-        raise EXTENSION_FORMAT_ERROR_MESSAGE
+        raise Exception(EXTENSION_FORMAT_ERROR_MESSAGE)
 
 
     transition_dicts = dict.fromkeys(BASE_FILENAMES, 0)
@@ -246,8 +254,8 @@ def init():
     roots = [(initial_tree[0].getroot()[0], initial_tree[1]) for initial_tree in initial_trees]
 
     for root in roots:
-        parse_transitions_and_labels(root, transition_dicts, nets_info, uplink, downlink, horizontal, only_transitions_dict),
-        parse_places(root, place_dicts, nets_info, shared_places, only_places_dict),
+        parse_transitions_and_labels(root, transition_dicts, nets_info, uplink, downlink, horizontal, only_transitions_dict)
+        parse_places(root, place_dicts, nets_info, shared_places, only_places_dict)
         parse_arcs(root, arc_dicts, nets_info, arc_variables, only_arcs_dict)
 
     vlabels, hlabels = create_sync_tag_in_labels(uplink, horizontal)

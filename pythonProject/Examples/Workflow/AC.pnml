@@ -1,0 +1,245 @@
+<pnml xmlns="NestedSpin">
+   <net id="netId1608471718733" type="NestedSpin">
+      <transition id="224">
+         <name>
+            <graphics>
+               <offset x="2" y="46"/>
+            </graphics>
+            <text>ACT2</text>
+         </name>
+         <horizontal_label>
+            <graphics>
+               <offset x="0" y="-46"/>
+            </graphics>
+            <text>L2</text>
+         </horizontal_label>
+         <graphics>
+            <position x="263" y="94"/>
+            <dimension x="15" y="73"/>
+            <fill color="rgb(0,0,255)"/>
+            <line color="rgb(0,0,0)"/>
+         </graphics>
+      </transition>
+      <place id="226">
+         <name>
+            <graphics>
+               <offset x="0" y="-49"/>
+            </graphics>
+            <text>ACP1</text>
+         </name>
+         <graphics>
+            <position x="147" y="94"/>
+            <dimension x="70" y="68"/>
+            <fill color="rgb(0,0,255)"/>
+            <line color="rgb(0,0,0)"/>
+         </graphics>
+      </place>
+      <arc id="227" source="226" target="224">
+         <type>
+            <text>ordinary</text>
+         </type>
+         <graphics>
+            <line color="rgb(0,0,0)" style="solid"/>
+         </graphics>
+      </arc>
+      <place id="230">
+         <name>
+            <graphics>
+               <offset x="0" y="-49"/>
+            </graphics>
+            <text>ACP2</text>
+         </name>
+         <graphics>
+            <position x="148" y="255"/>
+            <dimension x="70" y="68"/>
+            <fill color="rgb(0,0,255)"/>
+            <line color="rgb(0,0,0)"/>
+         </graphics>
+      </place>
+      <place id="232">
+         <name>
+            <graphics>
+               <offset x="0" y="-49"/>
+            </graphics>
+            <text>ACP3</text>
+         </name>
+         <graphics>
+            <position x="148" y="444"/>
+            <dimension x="70" y="68"/>
+            <fill color="rgb(0,0,255)"/>
+            <line color="rgb(0,0,0)"/>
+         </graphics>
+      </place>
+      <transition id="240">
+         <name>
+            <graphics>
+               <offset x="2" y="46"/>
+            </graphics>
+            <text>ACT5</text>
+         </name>
+         <horizontal_label>
+            <graphics>
+               <offset x="0" y="-49"/>
+            </graphics>
+            <text>L6</text>
+         </horizontal_label>
+         <graphics>
+            <position x="265" y="328"/>
+            <dimension x="15" y="73"/>
+            <fill color="rgb(0,0,255)"/>
+            <line color="rgb(0,0,0)"/>
+         </graphics>
+      </transition>
+      <transition id="242">
+         <name>
+            <graphics>
+               <offset x="2" y="46"/>
+            </graphics>
+            <text>ACT4</text>
+         </name>
+         <horizontal_label>
+            <graphics>
+               <offset x="2" y="-47"/>
+            </graphics>
+            <text>L5</text>
+         </horizontal_label>
+         <graphics>
+            <position x="266" y="207"/>
+            <dimension x="15" y="73"/>
+            <fill color="rgb(0,0,255)"/>
+            <line color="rgb(0,0,0)"/>
+         </graphics>
+      </transition>
+      <transition id="244">
+         <name>
+            <graphics>
+               <offset x="2" y="46"/>
+            </graphics>
+            <text>ACT3</text>
+         </name>
+         <horizontal_label>
+            <graphics>
+               <offset x="1" y="-48"/>
+            </graphics>
+            <text>L4</text>
+         </horizontal_label>
+         <graphics>
+            <position x="47" y="255"/>
+            <dimension x="15" y="73"/>
+            <fill color="rgb(0,0,255)"/>
+            <line color="rgb(0,0,0)"/>
+         </graphics>
+      </transition>
+      <transition id="246">
+         <name>
+            <graphics>
+               <offset x="2" y="46"/>
+            </graphics>
+            <text>ACT7</text>
+         </name>
+         <horizontal_label>
+            <graphics>
+               <offset x="4" y="-45"/>
+            </graphics>
+            <text>L8</text>
+         </horizontal_label>
+         <graphics>
+            <position x="261" y="445"/>
+            <dimension x="15" y="73"/>
+            <fill color="rgb(0,0,255)"/>
+            <line color="rgb(0,0,0)"/>
+         </graphics>
+      </transition>
+      <transition id="248">
+         <name>
+            <graphics>
+               <offset x="2" y="46"/>
+            </graphics>
+            <text>ACT6</text>
+         </name>
+         <horizontal_label>
+            <graphics>
+               <offset x="2" y="-46"/>
+            </graphics>
+            <text>L7</text>
+         </horizontal_label>
+         <graphics>
+            <position x="49" y="444"/>
+            <dimension x="15" y="73"/>
+            <fill color="rgb(0,0,255)"/>
+            <line color="rgb(0,0,0)"/>
+         </graphics>
+      </transition>
+      <transition id="268">
+         <name>
+            <graphics>
+               <offset x="2" y="46"/>
+            </graphics>
+            <text>ACT1</text>
+         </name>
+         <horizontal_label>
+            <graphics>
+               <offset x="0" y="-48"/>
+            </graphics>
+            <text>L1</text>
+         </horizontal_label>
+         <graphics>
+            <position x="48" y="93"/>
+            <dimension x="15" y="73"/>
+            <fill color="rgb(0,0,255)"/>
+            <line color="rgb(0,0,0)"/>
+         </graphics>
+      </transition>
+      <arc id="270" source="268" target="226">
+         <type>
+            <text>ordinary</text>
+         </type>
+         <graphics>
+            <line color="rgb(0,0,0)" style="solid"/>
+         </graphics>
+      </arc>
+      <arc id="272" source="244" target="230">
+         <type>
+            <text>ordinary</text>
+         </type>
+         <graphics>
+            <line color="rgb(0,0,0)" style="solid"/>
+         </graphics>
+      </arc>
+      <arc id="273" source="230" target="242">
+         <type>
+            <text>ordinary</text>
+         </type>
+         <graphics>
+            <line color="rgb(0,0,0)" style="solid"/>
+         </graphics>
+      </arc>
+      <arc id="274" source="230" target="240">
+         <type>
+            <text>ordinary</text>
+         </type>
+         <graphics>
+            <line color="rgb(0,0,0)" style="solid"/>
+         </graphics>
+      </arc>
+      <arc id="276" source="248" target="232">
+         <type>
+            <text>ordinary</text>
+         </type>
+         <graphics>
+            <line color="rgb(0,0,0)" style="solid"/>
+         </graphics>
+      </arc>
+      <arc id="277" source="232" target="246">
+         <type>
+            <text>ordinary</text>
+         </type>
+         <graphics>
+            <line color="rgb(0,0,0)" style="solid"/>
+         </graphics>
+      </arc>
+      <name>
+         <text>AC</text>
+      </name>
+   </net>
+</pnml>
