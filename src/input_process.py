@@ -216,7 +216,7 @@ def create_sync_tag_in_labels(uplink, horizontal):
 def init():
     args = sys.argv[1:]
 
-    INPUT_FILES = [".\{0}".format(str(arg).split('\\')[-1].split('/')[-1]) for arg in args]
+    INPUT_FILES = [str(arg) for arg in args]
     splited_filenames = [INPUT_FILE.split('.') for INPUT_FILE in INPUT_FILES]
 
     for splited_filename in splited_filenames:
@@ -228,8 +228,8 @@ def init():
     EXTENSIONS_FILENAMES = set([splited_filename[1]
                   for splited_filename in splited_filenames])
 
-#    if len(EXTENSIONS_FILENAMES) != 1 and EXTENSIONS_FILENAMES[0] != "pnml":
-#        raise Exception(EXTENSION_FORMAT_ERROR_MESSAGE)
+    if len(EXTENSIONS_FILENAMES) != 1 and EXTENSIONS_FILENAMES[0] != "pnml":
+        raise Exception(EXTENSION_FORMAT_ERROR_MESSAGE)
 
 
     transition_dicts = dict.fromkeys(BASE_FILENAMES, 0)
@@ -261,5 +261,3 @@ def init():
     vlabels, hlabels = create_sync_tag_in_labels(uplink, horizontal)
 
     return BASE_FILENAMES[0], place_dicts, transition_dicts, arc_dicts, nets_info, uplink, downlink, horizontal, vlabels, hlabels, shared_places, arc_variables, only_places_dict, only_arcs_dict, only_transitions_dict
-
-
