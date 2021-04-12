@@ -1,5 +1,5 @@
-<pnml xmlns="NestedSpin">
-   <net id="netId1606949699936" type="NestedSpin">
+<pnml xmlns="NPN">
+   <net id="netId1606949699936" type="NPN">
       <place id="120">
          <name>
             <graphics>

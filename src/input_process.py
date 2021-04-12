@@ -1,16 +1,16 @@
 import sys, re
 from xml.etree import ElementTree
 EXTENSION_FORMAT_ERROR_MESSAGE = "This script works only with pnml files"
-TRANSITION_TAG_MODEL_STRING = '{NestedSpin}transition'
-PLACE_TAG_MODEL_STRING = '{NestedSpin}place'
-ARC_TAG_MODEL_STRING = '{NestedSpin}arc'
+TRANSITION_TAG_MODEL_STRING = '{NPN}transition'
+PLACE_TAG_MODEL_STRING = '{NPN}place'
+ARC_TAG_MODEL_STRING = '{NPN}arc'
 BLACK_TOKEN = '[]'
 
 def extract_feature(thing, feature):
-    feature_string = '{NestedSpin}' + feature
+    feature_string = '{NPN}' + feature
     if thing.find(feature_string) is not None:
         features = thing.findall(feature_string)
-        return [item.find('{NestedSpin}text').text for item in features]
+        return [item.find('{NPN}text').text for item in features]
     else:
         return []
 
@@ -130,11 +130,11 @@ def parse_arcs(root, arc_dicts, nets_info, arc_variables, only_arcs_dict):
 
     def make_mark_dict(arc):
         mark_dict = dict()
-        for mark in arc.findall('{NestedSpin}inscription'):
-            if mark.find('{NestedSpin}text').text in mark_dict.keys():
-                mark_dict[mark.find('{NestedSpin}text').text] += 1
+        for mark in arc.findall('{NPN}inscription'):
+            if mark.find('{NPN}text').text in mark_dict.keys():
+                mark_dict[mark.find('{NPN}text').text] += 1
             else:
-                mark_dict[mark.find('{NestedSpin}text').text] = 1
+                mark_dict[mark.find('{NPN}text').text] = 1
         return mark_dict
     parsed_arc_elements = [
         (
@@ -249,7 +249,7 @@ def init():
                      for INPUT_FILE in INPUT_FILES]
 
     for tree in initial_trees:
-        nets_info[tree[1]]['id'] = tree[0].find('{NestedSpin}net').attrib['id']
+        nets_info[tree[1]]['id'] = tree[0].find('{NPN}net').attrib['id']
 
     roots = [(initial_tree[0].getroot()[0], initial_tree[1]) for initial_tree in initial_trees]
 
