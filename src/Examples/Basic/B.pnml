@@ -1,0 +1,77 @@
+<pnml xmlns="NPN">
+   <net id="netId1624054495972" type="NPN">
+      <transition id="195">
+         <name>
+            <graphics>
+               <offset x="2" y="46"/>
+            </graphics>
+            <text>AB1</text>
+         </name>
+         <horizontal_label>
+            <graphics>
+               <offset x="3" y="-48"/>
+            </graphics>
+            <text>Theta</text>
+         </horizontal_label>
+         <graphics>
+            <position x="174" y="110"/>
+            <dimension x="15" y="73"/>
+            <fill color="rgb(0,0,255)"/>
+            <line color="rgb(0,0,0)"/>
+         </graphics>
+      </transition>
+      <place id="196">
+         <name>
+            <graphics>
+               <offset x="-1" y="-52"/>
+            </graphics>
+            <text>PB2</text>
+         </name>
+         <graphics>
+            <position x="256" y="110"/>
+            <dimension x="70" y="68"/>
+            <fill color="rgb(0,0,255)"/>
+            <line color="rgb(0,0,0)"/>
+         </graphics>
+      </place>
+      <arc id="197" source="195" target="196">
+         <type>
+            <text>ordinary</text>
+         </type>
+         <graphics>
+            <line color="rgb(0,0,0)" style="solid"/>
+         </graphics>
+      </arc>
+      <place id="200">
+         <name>
+            <graphics>
+               <offset x="0" y="-49"/>
+            </graphics>
+            <text>PB1</text>
+         </name>
+         <initialMarking>
+            <graphics>
+               <offset x="0" y="0"/>
+            </graphics>
+            <text>[]</text>
+         </initialMarking>
+         <graphics>
+            <position x="96" y="110"/>
+            <dimension x="70" y="68"/>
+            <fill color="rgb(0,0,255)"/>
+            <line color="rgb(0,0,0)"/>
+         </graphics>
+      </place>
+      <arc id="201" source="200" target="195">
+         <type>
+            <text>ordinary</text>
+         </type>
+         <graphics>
+            <line color="rgb(0,0,0)" style="solid"/>
+         </graphics>
+      </arc>
+      <name>
+         <text>B</text>
+      </name>
+   </net>
+</pnml>

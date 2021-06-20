@@ -1,0 +1,127 @@
+<pnml xmlns="NPN">
+   <net id="netId1624054505005" type="NPN">
+      <transition id="175">
+         <name>
+            <graphics>
+               <offset x="2" y="46"/>
+            </graphics>
+            <text>TA1</text>
+         </name>
+         <horizontal_label>
+            <graphics>
+               <offset x="3" y="-48"/>
+            </graphics>
+            <text>Theta</text>
+         </horizontal_label>
+         <graphics>
+            <position x="184" y="167"/>
+            <dimension x="15" y="73"/>
+            <fill color="rgb(0,0,255)"/>
+            <line color="rgb(0,0,0)"/>
+         </graphics>
+      </transition>
+      <place id="176">
+         <name>
+            <graphics>
+               <offset x="-1" y="-52"/>
+            </graphics>
+            <text>PA2</text>
+         </name>
+         <graphics>
+            <position x="266" y="167"/>
+            <dimension x="70" y="68"/>
+            <fill color="rgb(0,0,255)"/>
+            <line color="rgb(0,0,0)"/>
+         </graphics>
+      </place>
+      <arc id="177" source="175" target="176">
+         <type>
+            <text>ordinary</text>
+         </type>
+         <graphics>
+            <line color="rgb(0,0,0)" style="solid"/>
+         </graphics>
+      </arc>
+      <place id="180">
+         <name>
+            <graphics>
+               <offset x="0" y="-49"/>
+            </graphics>
+            <text>PA1</text>
+         </name>
+         <initialMarking>
+            <graphics>
+               <offset x="0" y="0"/>
+            </graphics>
+            <text>[]</text>
+         </initialMarking>
+         <graphics>
+            <position x="106" y="167"/>
+            <dimension x="70" y="68"/>
+            <fill color="rgb(0,0,255)"/>
+            <line color="rgb(0,0,0)"/>
+         </graphics>
+      </place>
+      <arc id="181" source="180" target="175">
+         <type>
+            <text>ordinary</text>
+         </type>
+         <graphics>
+            <line color="rgb(0,0,0)" style="solid"/>
+         </graphics>
+      </arc>
+      <transition id="183">
+         <name>
+            <graphics>
+               <offset x="2" y="46"/>
+            </graphics>
+            <text>TA2</text>
+         </name>
+         <uplink_label>
+            <graphics>
+               <offset x="-1" y="-47"/>
+            </graphics>
+            <text>Lambda</text>
+         </uplink_label>
+         <graphics>
+            <position x="338" y="166"/>
+            <dimension x="15" y="73"/>
+            <fill color="rgb(0,0,255)"/>
+            <line color="rgb(0,0,0)"/>
+         </graphics>
+      </transition>
+      <arc id="186" source="176" target="183">
+         <type>
+            <text>ordinary</text>
+         </type>
+         <graphics>
+            <line color="rgb(0,0,0)" style="solid"/>
+         </graphics>
+      </arc>
+      <place id="187">
+         <name>
+            <graphics>
+               <offset x="0" y="-49"/>
+            </graphics>
+            <text>PA3</text>
+         </name>
+         <graphics>
+            <position x="424" y="166"/>
+            <dimension x="70" y="68"/>
+            <fill color="rgb(0,0,255)"/>
+            <line color="rgb(0,0,0)"/>
+         </graphics>
+      </place>
+      <arc id="189" source="183" target="187">
+         <type>
+            <text>ordinary</text>
+         </type>
+         <graphics>
+            <line color="rgb(0,0,0)" style="solid"/>
+         </graphics>
+      </arc>
+      <name>
+         <text>A</text>
+      </name>
+   </net>
+</pnml>

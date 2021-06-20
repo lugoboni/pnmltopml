@@ -1,0 +1,139 @@
+<pnml xmlns="NPN">
+   <net id="netId1624054460523" type="NPN">
+      <transition id="147">
+         <name>
+            <graphics>
+               <offset x="2" y="46"/>
+            </graphics>
+            <text>TSN1</text>
+         </name>
+         <graphics>
+            <position x="199" y="128"/>
+            <dimension x="15" y="73"/>
+            <fill color="rgb(0,0,255)"/>
+            <line color="rgb(0,0,0)"/>
+         </graphics>
+      </transition>
+      <place id="148">
+         <name>
+            <graphics>
+               <offset x="-1" y="-52"/>
+            </graphics>
+            <text>PSN2</text>
+         </name>
+         <graphics>
+            <position x="295" y="128"/>
+            <dimension x="70" y="68"/>
+            <fill color="rgb(64,64,64)"/>
+            <line color="rgb(0,0,0)"/>
+         </graphics>
+      </place>
+      <arc id="149" source="147" target="148">
+         <inscription>
+            <graphics>
+               <offset x="1" y="-7"/>
+            </graphics>
+            <text>B</text>
+         </inscription>
+         <inscription>
+            <graphics>
+               <offset x="-14" y="-7"/>
+            </graphics>
+            <text>A</text>
+         </inscription>
+         <type>
+            <text>ordinary</text>
+         </type>
+         <graphics>
+            <line color="rgb(0,0,0)" style="solid"/>
+         </graphics>
+      </arc>
+      <place id="153">
+         <name>
+            <graphics>
+               <offset x="0" y="-49"/>
+            </graphics>
+            <text>PSN1</text>
+         </name>
+         <initialMarking>
+            <graphics>
+               <offset x="0" y="0"/>
+            </graphics>
+            <text>[]</text>
+         </initialMarking>
+         <graphics>
+            <position x="121" y="128"/>
+            <dimension x="70" y="68"/>
+            <fill color="rgb(0,0,255)"/>
+            <line color="rgb(0,0,0)"/>
+         </graphics>
+      </place>
+      <arc id="154" source="153" target="147">
+         <type>
+            <text>ordinary</text>
+         </type>
+         <graphics>
+            <line color="rgb(0,0,0)" style="solid"/>
+         </graphics>
+      </arc>
+      <transition id="157">
+         <name>
+            <graphics>
+               <offset x="2" y="46"/>
+            </graphics>
+            <text>TSN2</text>
+         </name>
+         <downlink_label>
+            <graphics>
+               <offset x="-1" y="-47"/>
+            </graphics>
+            <text>Lambda</text>
+         </downlink_label>
+         <graphics>
+            <position x="385" y="128"/>
+            <dimension x="15" y="73"/>
+            <fill color="rgb(0,0,255)"/>
+            <line color="rgb(0,0,0)"/>
+         </graphics>
+      </transition>
+      <arc id="160" source="148" target="157">
+         <inscription>
+            <graphics>
+               <offset x="0" y="-10"/>
+            </graphics>
+            <text>x</text>
+         </inscription>
+         <type>
+            <text>ordinary</text>
+         </type>
+         <graphics>
+            <line color="rgb(0,0,0)" style="solid"/>
+         </graphics>
+      </arc>
+      <place id="161">
+         <name>
+            <graphics>
+               <offset x="0" y="-49"/>
+            </graphics>
+            <text>PSN3</text>
+         </name>
+         <graphics>
+            <position x="471" y="128"/>
+            <dimension x="70" y="68"/>
+            <fill color="rgb(0,0,255)"/>
+            <line color="rgb(0,0,0)"/>
+         </graphics>
+      </place>
+      <arc id="163" source="157" target="161">
+         <type>
+            <text>ordinary</text>
+         </type>
+         <graphics>
+            <line color="rgb(0,0,0)" style="solid"/>
+         </graphics>
+      </arc>
+      <name>
+         <text>SN</text>
+      </name>
+   </net>
+</pnml>
